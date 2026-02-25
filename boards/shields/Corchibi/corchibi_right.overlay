@@ -4,22 +4,21 @@
     nfct-pins-as-gpios;
 };
 
-/* バージョンアップに伴う不要な通信機能の停止 */
+/* ZMK mainの仕様に合わせて不要な通信機能を停止 */
 &uart0 { status = "disabled"; };
 &spi2 { status = "disabled"; };
 &i2c1 { status = "disabled"; };
 
-/* 物理ピン番号での直接指定（xiao_dのズレを解消） */
 &kscan0 {
+    /* 100%正解だった元のピン指定に戻します */
     gpios
-        = <&gpio0 3 GPIO_ACTIVE_HIGH>  // D0 (P0.03)
-        , <&gpio0 28 GPIO_ACTIVE_HIGH> // D1 (P0.28)
-        , <&gpio0 29 GPIO_ACTIVE_HIGH> // D2 (P0.29)
-        , <&gpio1 11 GPIO_ACTIVE_HIGH> // D6 (P1.11)
-        , <&gpio1 15 GPIO_ACTIVE_HIGH> // D10 (P1.15)
-        , <&gpio1 14 GPIO_ACTIVE_HIGH> // D9 (P1.14)
+        = <&xiao_d 1 GPIO_ACTIVE_HIGH>  // IO 0 (P0.03)
+        , <&xiao_d 2 GPIO_ACTIVE_HIGH>  // IO 1 (P0.28)
+        , <&xiao_d 3 GPIO_ACTIVE_HIGH>  // IO 2 (P0.29)
+        , <&xiao_d 6 GPIO_ACTIVE_HIGH>  // IO 3 (P1.11)
+        , <&xiao_d 10 GPIO_ACTIVE_HIGH> // IO 4 (P1.15)
+        , <&xiao_d 9 GPIO_ACTIVE_HIGH>  // IO 5 (P1.14)
         ;
-    interrupt-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // D8 (P1.13)
+    /* 割り込みピンによるフリーズを疑い、一時的に無効化して検証します */
+    // interrupt-gpios = <&xiao_d 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // INTR (P1.13)
 };
-
-/* センサー設定はキーが直るまで一時的に完全に消去しています */

@@ -5,7 +5,10 @@
     nfct-pins-as-gpios;
 };
 
-&xiao_serial { status = "disabled"; };
+/* 最新版の仕様に合わせて不要な通信機能を止め、ピンをマトリクス用に解放します */
+&uart0 { status = "disabled"; };
+&spi2 { status = "disabled"; };
+&i2c1 { status = "disabled"; };
 
 &kscan0 {
     gpios
@@ -55,7 +58,7 @@
     trackball: trackball@79 {
         compatible = "pixart,pat912x";
         reg = <0x79>;
-        status = "disabled"; // センサーを取り付けるまでは無効化します
+        status = "disabled";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;
         res-y-cpi = <600>;
@@ -70,6 +73,6 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        status = "disabled"; // こちらも合わせて無効化します
+        status = "disabled";
     };
 };

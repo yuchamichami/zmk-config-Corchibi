@@ -1,6 +1,10 @@
 #include "corchibi.dtsi"
 #include <dt-bindings/zmk/pointing.h>
 
+&uicr {
+    nfct-pins-as-gpios;
+};
+
 &xiao_serial { status = "disabled"; };
 
 &kscan0 {

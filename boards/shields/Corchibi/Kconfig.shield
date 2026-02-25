@@ -1,5 +1,5 @@
 config SHIELD_CORCHIBI_R
-    def_bool $(shields_list_contains,corchibi_r)
+    def_bool $(shields_list_contains,Corchibi_R)
 
 config SHIELD_CORCHIBI_L
-    def_bool $(shields_list_contains,corchibi_l)
+    def_bool $(shields_list_contains,Corchibi_L)

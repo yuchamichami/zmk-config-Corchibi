@@ -55,7 +55,7 @@
     trackball: trackball@79 {
         compatible = "pixart,pat912x";
         reg = <0x79>;
-        status = "okay";
+        status = "disabled"; // センサーを取り付けるまでは無効化します
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;
         res-y-cpi = <600>;
@@ -70,5 +70,6 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        status = "disabled"; // こちらも合わせて無効化します
     };
 };

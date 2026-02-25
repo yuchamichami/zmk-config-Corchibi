@@ -10,6 +10,7 @@
     physical_layout0: physical_layout0 {
         compatible = "zmk,physical-layout";
         display-name = "Default Layout";
+        kscan = <&kscan0>;
         transform = <&default_transform>;
         keys
             // 1行目 (6キー)
@@ -22,7 +23,7 @@
             // 2行目 (6キー)
             , <&key_physical_attrs 100 100    0  100 0 0 0>
             , <&key_physical_attrs 100 100  100  100 0 0 0>
-            , <&key_physical_attrs 100 100  200  100 0 0 0>
+            , <key_physical_attrs 100 100  200  100 0 0 0>
             , <&key_physical_attrs 100 100  300  100 0 0 0>
             , <&key_physical_attrs 100 100  400  100 0 0 0>
             , <&key_physical_attrs 100 100  500  100 0 0 0>

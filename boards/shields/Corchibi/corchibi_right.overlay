@@ -1,78 +1,25 @@
 #include "corchibi.dtsi"
-#include <dt-bindings/zmk/pointing.h>
 
 &uicr {
     nfct-pins-as-gpios;
 };
 
-/* 最新版の仕様に合わせて不要な通信機能を止め、ピンをマトリクス用に解放します */
+/* バージョンアップに伴う不要な通信機能の停止 */
 &uart0 { status = "disabled"; };
 &spi2 { status = "disabled"; };
 &i2c1 { status = "disabled"; };
 
+/* 物理ピン番号での直接指定（xiao_dのズレを解消） */
 &kscan0 {
     gpios
-        = <&xiao_d 1 GPIO_ACTIVE_HIGH>  // IO 0 (P0.03)
-        , <&xiao_d 2 GPIO_ACTIVE_HIGH>  // IO 1 (P0.28)
-        , <&xiao_d 3 GPIO_ACTIVE_HIGH>  // IO 2 (P0.29)
-        , <&xiao_d 6 GPIO_ACTIVE_HIGH>  // IO 3 (P1.11)
-        , <&xiao_d 10 GPIO_ACTIVE_HIGH> // IO 4 (P1.15)
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>  // IO 5 (P1.14)
+        = <&gpio0 3 GPIO_ACTIVE_HIGH>  // D0 (P0.03)
+        , <&gpio0 28 GPIO_ACTIVE_HIGH> // D1 (P0.28)
+        , <&gpio0 29 GPIO_ACTIVE_HIGH> // D2 (P0.29)
+        , <&gpio1 11 GPIO_ACTIVE_HIGH> // D6 (P1.11)
+        , <&gpio1 15 GPIO_ACTIVE_HIGH> // D10 (P1.15)
+        , <&gpio1 14 GPIO_ACTIVE_HIGH> // D9 (P1.14)
         ;
-    interrupt-gpios = <&xiao_d 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // INTR (P1.13)
+    interrupt-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // D8 (P1.13)
 };
 
-&pinctrl {
-    i2c0_default: i2c0_default {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 10)>;
-            bias-pull-up;
-        };
-    };
-    i2c0_sleep: i2c0_sleep {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 10)>;
-            low-power-enable;
-            bias-pull-up;
-        };
-    };
-};
-
-&gpio0 {
-    pat_ncs {
-        gpio-hog;
-        gpios = <4 GPIO_ACTIVE_HIGH>;
-        output-high;
-    };
-};
-
-&i2c0 {
-    status = "okay";
-    compatible = "nordic,nrf-twim";
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
-    pinctrl-names = "default", "sleep";
-
-    trackball: trackball@79 {
-        compatible = "pixart,pat912x";
-        reg = <0x79>;
-        status = "disabled";
-        motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        res-x-cpi = <600>;
-        res-y-cpi = <600>;
-        zephyr,axis-x = <INPUT_REL_X>;
-        zephyr,axis-y = <INPUT_REL_Y>;
-        sleep1-enable;
-        sleep2-enable;
-    };
-};
-
-/ {
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        status = "disabled";
-    };
-};
+/* センサー設定はキーが直るまで一時的に完全に消去しています */

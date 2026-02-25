@@ -8,7 +8,7 @@
 &xiao_serial { status = "disabled"; };
 
 &kscan0 {
-    gpios
+    col-gpios
         = <&xiao_d 1 GPIO_ACTIVE_HIGH>  // IO 0 (P0.03)
         , <&xiao_d 2 GPIO_ACTIVE_HIGH>  // IO 1 (P0.28)
         , <&xiao_d 3 GPIO_ACTIVE_HIGH>  // IO 2 (P0.29)
@@ -16,7 +16,6 @@
         , <&xiao_d 10 GPIO_ACTIVE_HIGH> // IO 4 (P1.15)
         , <&xiao_d 9 GPIO_ACTIVE_HIGH>  // IO 5 (P1.14)
         ;
-    interrupt-gpios = <&xiao_d 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; // INTR (P1.13)
 };
 
 &pinctrl {

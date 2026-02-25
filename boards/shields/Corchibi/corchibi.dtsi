@@ -15,10 +15,11 @@
 / {
     chosen {
         zmk,physical-layout = &default_layout;
+        /* 追加：kscan0との紐付け */
         zmk,kscan = &kscan0;
     };
 
-    /* ここにkscan0の定義を復活させます */
+    /* 追加：kscan0の定義（中身はoverlayで上書きされるため最小限でOK） */
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-charlieplex";
         wakeup-source;
@@ -78,8 +79,9 @@
     default_layout: default_layout {
         compatible = "zmk,physical-layout";
         display-name = "Default";
-        transform = <&default_transform>;
+
         kscan = <&kscan0>;
+        transform = <&default_transform>;
 
         keys
             = <&key_physical_attrs 100 100    0    0       0     0     0>

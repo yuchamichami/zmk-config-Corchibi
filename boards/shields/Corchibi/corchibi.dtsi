@@ -15,17 +15,14 @@
 / {
     chosen {
         zmk,physical-layout = &default_layout;
-        /* 追加：kscan0との紐付け */
         zmk,kscan = &kscan0;
     };
 
-    /* 追加：kscan0の定義（中身はoverlayで上書きされるため最小限でOK） */
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-charlieplex";
         wakeup-source;
     };
 
-    // trackball settings
     split_inputs {
         #address-cells = <1>;
         #size-cells = <0>;
@@ -79,9 +76,8 @@
     default_layout: default_layout {
         compatible = "zmk,physical-layout";
         display-name = "Default";
-
-        kscan = <&kscan0>;
         transform = <&default_transform>;
+        kscan = <&kscan0>;
 
         keys
             = <&key_physical_attrs 100 100    0    0       0     0     0>

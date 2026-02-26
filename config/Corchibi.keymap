@@ -8,10 +8,21 @@
 
         default_layer {
             bindings = <
-&kp A &kp B &kp C &kp D &kp E &kp F    &kp G &kp H &kp I &kp J &kp K &kp L
-&kp M &kp N &kp O &kp P &kp Q &kp R    &kp S &kp T &kp U &kp V &kp W &kp X
-&kp Y &kp Z &kp A &kp B &kp C &kp D    &kp E &kp F &kp G &kp H &kp I &kp J
-&kp K &kp L &kp M &kp N &kp O &kp P    &kp Q &kp R &kp S &kp T &kp U &kp V
+/* Left: 25 keys */
+&kp Q &kp W &kp E &kp R
+&kp A &kp S &kp D &kp F
+&kp Z &kp X &kp C &kp V
+&kp N1 &kp N2 &kp N3 &kp N4
+&kp N5 &kp N6 &kp N7 &kp N8
+&kp N9 &kp N0 &kp MINUS &kp EQUAL &kp LBRC
+
+/* Right: 25 keys */
+&kp Y &kp U &kp I &kp O
+&kp H &kp J &kp K &kp L
+&kp N &kp M &kp COMMA &kp DOT
+&kp N1 &kp N2 &kp N3 &kp N4
+&kp N5 &kp N6 &kp N7 &kp N8
+&kp N9 &kp N0 &kp MINUS &kp EQUAL &kp RBRC
             >;
         };
     };

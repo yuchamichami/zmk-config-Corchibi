@@ -22,12 +22,6 @@
 };
 
 &gpio0 {
-    sensor_cursor_id {
-        gpio-hog;
-        gpios = <4 GPIO_ACTIVE_HIGH>;
-        output-high;
-    };
-
     sensor_scroll_id {
         gpio-hog;
         gpios = <2 GPIO_ACTIVE_HIGH>;
@@ -81,9 +75,9 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
-    trackball_R: trackball_R@73 {
+    trackball_R: trackball_R@79 {
         compatible = "pixart,pat912x";
-        reg = <0x73>;
+        reg = <0x79>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;

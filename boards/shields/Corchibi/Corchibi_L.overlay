@@ -2,6 +2,7 @@
 #include <dt-bindings/pinctrl/nrf-pinctrl.h>
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
+#include <input/processors/report_rate_limit.dtsi>
 
 &kscan0 {
     compatible = "zmk,kscan-gpio-charlieplex";
@@ -53,6 +54,8 @@
         res-y-cpi = <600>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
+        /* 左側はセンサー本体から通信を送る前に間引きます */
+        input-processors = <&zip_report_rate_limit 8>;
     };
 };
 

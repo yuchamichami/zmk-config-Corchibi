@@ -1,4 +1,4 @@
-#include "corchibi.dtsi"
+#include "Corchibi.dtsi"
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 
@@ -20,7 +20,8 @@
     i2c0_default: i2c0_default {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,  /* NFC1: P0.09 */
-                <NRF_PSEL(TWIM_SCL, 0, 10)>; /* NFC2: P0.10 */
+                <NRF_PSEL(TWIM_SCL, 0, 10)>;
+            /* NFC2: P0.10 */
         };
     };
 
@@ -44,7 +45,8 @@
         compatible = "pixart,pat912x";
         reg = <0x79>;
         status = "okay";
-        motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; /* MOTION: P1.12 */
+        motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        /* MOTION: P1.12 */
         res-x-cpi = <100>;
         res-y-cpi = <100>;
         zephyr,axis-x = <INPUT_REL_X>;

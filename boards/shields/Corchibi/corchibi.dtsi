@@ -34,15 +34,13 @@
 
     trackball_listener_L: trackball_listener_L {
         compatible = "zmk,input-listener";
-        /* 無効になっていたため、okayに変更して起動させます */
         status = "okay";
         device = <&trackball_split_L>;
         input-processors =
-            /* 間引き処理は受信側（セントラル）で行います */
             <&zip_report_rate_limit 8>,
             <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 16>;
+            <&zip_scroll_scaler 1 4>;
     };
 
     trackball_listener_R: trackball_listener_R {
@@ -56,7 +54,6 @@
         columns = <12>;
         rows = <6>;
         map = <
-            /* Left (25 keys) */
             RC(0,1) RC(0,2) RC(0,3) RC(0,4)
             RC(1,0) RC(1,2) RC(1,3) RC(1,4)
             RC(2,0) RC(2,1) RC(2,3) RC(2,4)
@@ -64,7 +61,6 @@
             RC(4,0) RC(4,1) RC(4,2) RC(4,3)
             RC(5,0) RC(5,1) RC(5,2) RC(5,3) RC(5,4)
 
-            /* Right (25 keys) */
             RC(0,7) RC(0,8) RC(0,9) RC(0,10)
             RC(1,6) RC(1,8) RC(1,9) RC(1,10)
             RC(2,6) RC(2,7) RC(2,9) RC(2,10)
@@ -81,7 +77,6 @@
         kscan = <&kscan0>;
 
         keys
-            /* Left (25 items) */
             = <&key_physical_attrs 100 100 0 0 0 0 0>
             , <&key_physical_attrs 100 100 0 0 0 0 0>
             , <&key_physical_attrs 100 100 0 0 0 0 0>
@@ -107,7 +102,7 @@
             , <&key_physical_attrs 100 100 0 0 0 0 0>
             , <&key_physical_attrs 100 100 0 0 0 0 0>
             , <&key_physical_attrs 100 100 0 0 0 0 0>
-            /* Right (25 items) */
+            
             , <&key_physical_attrs 100 100 0 0 0 0 0>
             , <&key_physical_attrs 100 100 0 0 0 0 0>
             , <&key_physical_attrs 100 100 0 0 0 0 0>

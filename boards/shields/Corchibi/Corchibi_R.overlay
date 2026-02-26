@@ -8,6 +8,11 @@
     col-offset = <6>;
 };
 
+/* XiaoのデフォルトI2Cを無効化し、P0.04とP0.05を通常のGPIOとして解放します */
+&i2c0 {
+    status = "disabled";
+};
+
 &kscan0 {
     compatible = "zmk,kscan-gpio-charlieplex";
     gpios

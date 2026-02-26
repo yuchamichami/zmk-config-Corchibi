@@ -59,6 +59,4 @@
 
 &trackball_split_L {
     device = <&trackball_L>;
-    /* 左側はセンサー本体から通信を送る前の中継地点で間引きます */
-    input-processors = <&zip_report_rate_limit 8>;
 };

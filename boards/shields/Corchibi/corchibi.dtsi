@@ -5,9 +5,7 @@
 #include <input/processors.dtsi>
 #include <physical_layouts.dtsi>
 
-/* エラー回避のため停止していたモジュールを有効化します */
 #include <input/processors/report_rate_limit.dtsi>
-/* #include <input/processors/xyz.dtsi> */
 
 &uicr {
     nfct-pins-as-gpios;
@@ -36,9 +34,12 @@
 
     trackball_listener_L: trackball_listener_L {
         compatible = "zmk,input-listener";
-        status = "disabled";
+        /* 無効になっていたため、okayに変更して起動させます */
+        status = "okay";
         device = <&trackball_split_L>;
         input-processors =
+            /* 間引き処理は受信側（セントラル）で行います */
+            <&zip_report_rate_limit 8>,
             <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_scaler 1 16>;
@@ -47,7 +48,6 @@
     trackball_listener_R: trackball_listener_R {
         compatible = "zmk,input-listener";
         status = "disabled";
-        /* 右手からPCへ送る通信量を8msごとに制限 */
         input-processors = <&zip_report_rate_limit 8>;
     };
 

@@ -1,4 +1,4 @@
-#include "Corchibi.dtsi"
+#include "corchibi.dtsi"
 #include <dt-bindings/pinctrl/nrf-pinctrl.h>
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>

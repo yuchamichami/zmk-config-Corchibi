@@ -5,6 +5,10 @@
 #include <input/processors.dtsi>
 #include <physical_layouts.dtsi>
 
+/* エラー回避のため停止していたモジュールを有効化します */
+#include <input/processors/report_rate_limit.dtsi>
+/* #include <input/processors/xyz.dtsi> */
+
 &uicr {
     nfct-pins-as-gpios;
 };
@@ -27,6 +31,8 @@
         trackball_split_L: trackball_split_L@0 {
             compatible = "zmk,input-split";
             reg = <0>;
+            /* 左手から右手へ送る通信量を8msごとに制限 */
+            input-processors = <&zip_report_rate_limit 8>;
         };
     };
 
@@ -43,6 +49,8 @@
     trackball_listener_R: trackball_listener_R {
         compatible = "zmk,input-listener";
         status = "disabled";
+        /* 右手からPCへ送る通信量を8msごとに制限 */
+        input-processors = <&zip_report_rate_limit 8>;
     };
 
     default_transform: keymap_transform_0 {

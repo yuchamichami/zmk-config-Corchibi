@@ -54,11 +54,11 @@
         res-y-cpi = <600>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
-        /* 左側はセンサー本体から通信を送る前に間引きます */
-        input-processors = <&zip_report_rate_limit 8>;
     };
 };
 
 &trackball_split_L {
     device = <&trackball_L>;
+    /* 左側はセンサー本体から通信を送る前の中継地点で間引きます */
+    input-processors = <&zip_report_rate_limit 8>;
 };

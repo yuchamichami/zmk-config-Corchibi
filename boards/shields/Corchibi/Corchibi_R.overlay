@@ -95,3 +95,8 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 };
+
+/* UARTピンとの競合を防ぎ、P1.12をセンサーのmotionピンとして解放する */
+&uart0 {
+    status = "disabled";
+};

@@ -54,6 +54,19 @@
 &trackball_listener_R {
     status = "okay";
     device = <&trackball_R>;
+    
+    /* 通常時（レイヤー0）はマウスカーソルとして動作します */
+    input-processors = <&zip_report_rate_limit 8>;
+
+    /* レイヤー1が有効な時はスクロールとして動作します */
+    scroll {
+        layers = <1>;
+        input-processors =
+            <&zip_report_rate_limit 8>,
+            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_scaler 1 4>;
+    };
 };
 
 / {

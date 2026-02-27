@@ -8,19 +8,6 @@
     col-offset = <6>;
 };
 
-&gpio0 {
-    sensor_cursor_id {
-        gpio-hog;
-        gpios = <4 GPIO_ACTIVE_HIGH>;
-        output-high;
-    };
-    sensor_scroll_id {
-        gpio-hog;
-        gpios = <2 GPIO_ACTIVE_HIGH>;
-        output-low;
-    };
-};
-
 &gpio1 {
     sensor_wakeup {
         gpio-hog;
@@ -84,10 +71,10 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
-    /* スキャン結果 0x23 に合わせる */
-    trackball_R: trackball_R@23 {
+    /* NCSを3.3Vにハード配線 (アドレス 0x73) */
+    trackball_R: trackball_R@73 {
         compatible = "pixart,pat912x";
-        reg = <0x23>;
+        reg = <0x73>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;
@@ -96,10 +83,10 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
-    /* スキャン結果 0x70 に合わせる */
-    trackball_R_scroll: trackball_R_scroll@70 {
+    /* NCSをGNDにハード配線 (アドレス 0x75) */
+    trackball_R_scroll: trackball_R_scroll@75 {
         compatible = "pixart,pat912x";
-        reg = <0x70>;
+        reg = <0x75>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;

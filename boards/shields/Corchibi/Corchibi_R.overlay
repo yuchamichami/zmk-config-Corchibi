@@ -8,6 +8,28 @@
     col-offset = <6>;
 };
 
+/* センサーを叩き起こし、アドレスを固定する */
+&gpio0 {
+    sensor_cursor_id {
+        gpio-hog;
+        gpios = <4 GPIO_ACTIVE_HIGH>;
+        output-high; /* 0x73 */
+    };
+    sensor_scroll_id {
+        gpio-hog;
+        gpios = <2 GPIO_ACTIVE_HIGH>;
+        output-low;  /* 0x75 */
+    };
+};
+
+&gpio1 {
+    sensor_wakeup {
+        gpio-hog;
+        gpios = <13 GPIO_ACTIVE_HIGH>;
+        output-high; /* P1.13(INTR)をHighにしてセンサーを起動 */
+    };
+};
+
 &kscan0 {
     compatible = "zmk,kscan-gpio-charlieplex";
     gpios
@@ -18,48 +40,29 @@
         , <&gpio1 15 (GPIO_ACTIVE_HIGH)>
         , <&gpio1 14 (GPIO_ACTIVE_HIGH)>
         ;
-    interrupt-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-};
-
-/* ピンの電圧を固定/開放してI2Cアドレスを分けます */
-&gpio0 {
-    sensor_cursor_id {
-        gpio-hog;
-        gpios = <4 GPIO_ACTIVE_HIGH>;
-        output-high; /* P0.04(NCS) -> High -> 0x73 */
-    };
-    sensor_scroll_id {
-        gpio-hog;
-        gpios = <2 GPIO_ACTIVE_HIGH>;
-        input;       /* P0.02(RE_B) -> 入力(浮き)にしてSPI暴走を防ぐ -> 0x79 */
-    };
+    /* センサー起動ピン(P1.13)と競合するため、ここからは外します */
 };
 
 &pinctrl {
     i2c0_default: i2c0_default {
         group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 10)>;
+            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>, <NRF_PSEL(TWIM_SCL, 0, 10)>;
         };
     };
-
     i2c0_sleep: i2c0_sleep {
         group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 10)>;
+            psels = <NRF_PSEL(TWIM_SDA, 0, 9)>, <NRF_PSEL(TWIM_SCL, 0, 10)>;
             low-power-enable;
         };
     };
 };
 
-/* カーソル用リスナー */
 &trackball_listener_R {
     status = "okay";
     device = <&trackball_R>;
     input-processors = <&zip_report_rate_limit 8>;
 };
 
-/* スクロール用リスナー */
 / {
     trackball_listener_R_scroll: trackball_listener_R_scroll {
         compatible = "zmk,input-listener";
@@ -73,7 +76,6 @@
     };
 };
 
-/* 生きているi2c0をそのまま使います */
 &i2c0 {
     status = "okay";
     compatible = "nordic,nrf-twim";
@@ -81,11 +83,9 @@
     pinctrl-1 = <&i2c0_sleep>;
     pinctrl-names = "default", "sleep";
     clock-frequency = <I2C_BITRATE_FAST>;
-
     #address-cells = <1>;
     #size-cells = <0>;
 
-    /* カーソル側: 0x73 */
     trackball_R: trackball_R@73 {
         compatible = "pixart,pat912x";
         reg = <0x73>;
@@ -97,10 +97,9 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
-    /* スクロール側: 0x79 (浮き状態) */
-    trackball_R_scroll: trackball_R_scroll@79 {
+    trackball_R_scroll: trackball_R_scroll@75 {
         compatible = "pixart,pat912x";
-        reg = <0x79>;
+        reg = <0x75>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;

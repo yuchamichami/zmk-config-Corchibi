@@ -8,17 +8,16 @@
     col-offset = <6>;
 };
 
-/* センサーを叩き起こし、アドレスを固定する */
 &gpio0 {
     sensor_cursor_id {
         gpio-hog;
         gpios = <4 GPIO_ACTIVE_HIGH>;
-        output-high; /* 0x73 */
+        output-high;
     };
     sensor_scroll_id {
         gpio-hog;
         gpios = <2 GPIO_ACTIVE_HIGH>;
-        output-low;  /* 0x75 */
+        output-low;
     };
 };
 
@@ -26,7 +25,7 @@
     sensor_wakeup {
         gpio-hog;
         gpios = <13 GPIO_ACTIVE_HIGH>;
-        output-high; /* P1.13(INTR)をHighにしてセンサーを起動 */
+        output-high;
     };
 };
 
@@ -40,7 +39,6 @@
         , <&gpio1 15 (GPIO_ACTIVE_HIGH)>
         , <&gpio1 14 (GPIO_ACTIVE_HIGH)>
         ;
-    /* センサー起動ピン(P1.13)と競合するため、ここからは外します */
 };
 
 &pinctrl {
@@ -86,9 +84,10 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
-    trackball_R: trackball_R@73 {
+    /* スキャン結果 0x23 に合わせる */
+    trackball_R: trackball_R@23 {
         compatible = "pixart,pat912x";
-        reg = <0x73>;
+        reg = <0x23>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;
@@ -97,9 +96,10 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
-    trackball_R_scroll: trackball_R_scroll@75 {
+    /* スキャン結果 0x70 に合わせる */
+    trackball_R_scroll: trackball_R_scroll@70 {
         compatible = "pixart,pat912x";
-        reg = <0x75>;
+        reg = <0x70>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;

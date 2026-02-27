@@ -26,11 +26,17 @@
     interrupt-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
 };
 
+/* ピンの電圧を固定してI2Cアドレスを分けます */
 &gpio0 {
+    sensor_cursor_id {
+        gpio-hog;
+        gpios = <4 GPIO_ACTIVE_HIGH>;
+        output-high; /* P0.04(NCS)をHigh = アドレス 0x73 */
+    };
     sensor_scroll_id {
         gpio-hog;
         gpios = <2 GPIO_ACTIVE_HIGH>;
-        output-low;
+        output-low;  /* P0.02(RE_B)をLow = アドレス 0x75 */
     };
 };
 
@@ -51,6 +57,7 @@
     };
 };
 
+/* 1個目：メインボールのリスナー（レイヤー切り替え機能付き） */
 &trackball_listener_R {
     status = "okay";
     device = <&trackball_R>;
@@ -69,6 +76,7 @@
     };
 };
 
+/* 2個目：サブボールのリスナー（スクロール専用） */
 / {
     trackball_listener_R_scroll: trackball_listener_R_scroll {
         compatible = "zmk,input-listener";
@@ -93,9 +101,10 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
-    trackball_R: trackball_R@79 {
+    /* 1個目：メインボール (アドレス0x73) */
+    trackball_R: trackball_R@73 {
         compatible = "pixart,pat912x";
-        reg = <0x79>;
+        reg = <0x73>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;
@@ -104,6 +113,7 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
+    /* 2個目：サブボール (アドレス0x75) */
     trackball_R_scroll: trackball_R_scroll@75 {
         compatible = "pixart,pat912x";
         reg = <0x75>;

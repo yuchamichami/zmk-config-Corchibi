@@ -8,11 +8,6 @@
     col-offset = <6>;
 };
 
-/* XiaoのデフォルトI2Cを無効化し、P0.04とP0.05を通常のGPIOとして解放します */
-&i2c0 {
-    status = "disabled";
-};
-
 &kscan0 {
     compatible = "zmk,kscan-gpio-charlieplex";
     gpios
@@ -31,24 +26,24 @@
     sensor_cursor_id {
         gpio-hog;
         gpios = <4 GPIO_ACTIVE_HIGH>;
-        output-high; /* P0.04(NCS)をHigh = アドレス 0x73 */
+        output-high; /* P0.04(NCS) -> High -> 0x73 */
     };
     sensor_scroll_id {
         gpio-hog;
         gpios = <2 GPIO_ACTIVE_HIGH>;
-        output-low;  /* P0.02(RE_B)をLow = アドレス 0x75 */
+        output-low;  /* P0.02(RE_B) -> Low -> 0x75 */
     };
 };
 
 &pinctrl {
-    i2c1_default: i2c1_default {
+    i2c0_default: i2c0_default {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
                     <NRF_PSEL(TWIM_SCL, 0, 10)>;
         };
     };
 
-    i2c1_sleep: i2c1_sleep {
+    i2c0_sleep: i2c0_sleep {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 9)>,
                     <NRF_PSEL(TWIM_SCL, 0, 10)>;
@@ -57,26 +52,14 @@
     };
 };
 
-/* 1個目：メインボールのリスナー（レイヤー切り替え機能付き） */
+/* カーソル用リスナー */
 &trackball_listener_R {
     status = "okay";
     device = <&trackball_R>;
-    
-    /* 通常時（レイヤー0）はマウスカーソルとして動作します */
     input-processors = <&zip_report_rate_limit 8>;
-
-    /* レイヤー1が有効な時はスクロールとして動作します */
-    scroll {
-        layers = <1>;
-        input-processors =
-            <&zip_report_rate_limit 8>,
-            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 4>;
-    };
 };
 
-/* 2個目：サブボールのリスナー（スクロール専用） */
+/* スクロール用リスナー */
 / {
     trackball_listener_R_scroll: trackball_listener_R_scroll {
         compatible = "zmk,input-listener";
@@ -90,18 +73,18 @@
     };
 };
 
-&i2c1 {
+/* 生きているi2c0をそのまま使います */
+&i2c0 {
     status = "okay";
     compatible = "nordic,nrf-twim";
-    pinctrl-0 = <&i2c1_default>;
-    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
     pinctrl-names = "default", "sleep";
     clock-frequency = <I2C_BITRATE_FAST>;
 
     #address-cells = <1>;
     #size-cells = <0>;
 
-    /* 1個目：メインボール (アドレス0x73) */
     trackball_R: trackball_R@73 {
         compatible = "pixart,pat912x";
         reg = <0x73>;
@@ -113,7 +96,6 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
-    /* 2個目：サブボール (アドレス0x75) */
     trackball_R_scroll: trackball_R_scroll@75 {
         compatible = "pixart,pat912x";
         reg = <0x75>;

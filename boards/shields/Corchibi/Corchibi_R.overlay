@@ -21,7 +21,7 @@
     interrupt-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
 };
 
-/* ピンの電圧を固定してI2Cアドレスを分けます */
+/* ピンの電圧を固定/開放してI2Cアドレスを分けます */
 &gpio0 {
     sensor_cursor_id {
         gpio-hog;
@@ -31,7 +31,7 @@
     sensor_scroll_id {
         gpio-hog;
         gpios = <2 GPIO_ACTIVE_HIGH>;
-        output-low;  /* P0.02(RE_B) -> Low -> 0x75 */
+        input;       /* P0.02(RE_B) -> 入力(浮き)にしてSPI暴走を防ぐ -> 0x79 */
     };
 };
 
@@ -85,6 +85,7 @@
     #address-cells = <1>;
     #size-cells = <0>;
 
+    /* カーソル側: 0x73 */
     trackball_R: trackball_R@73 {
         compatible = "pixart,pat912x";
         reg = <0x73>;
@@ -96,9 +97,10 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
-    trackball_R_scroll: trackball_R_scroll@75 {
+    /* スクロール側: 0x79 (浮き状態) */
+    trackball_R_scroll: trackball_R_scroll@79 {
         compatible = "pixart,pat912x";
-        reg = <0x75>;
+        reg = <0x79>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <600>;

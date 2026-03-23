@@ -34,13 +34,21 @@
 };
 
 / {
+    // 【修正】右（セントラル）にオートマウスリスナーを配置
+    auto_mouse_layer_listener: auto_mouse_layer_listener {
+        compatible = "zmk,input-listener";
+        status = "okay";
+        input-processors = <&zip_temp_layer 1 2000>;
+    };
+
     trackball_listener_R_scroll: trackball_listener_R_scroll {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&trackball_R_scroll>;
         input-processors =
+            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 4>;
+            <&zip_scroll_scaler 1 6>;
     };
 };
 
@@ -48,7 +56,6 @@
     status = "okay";
     device = <&trackball_R>;
     input-processors = 
-        <&zip_temp_layer 1 2000>,
         <&zip_xy_scaler 1 1>;
 
     scroll_layer {

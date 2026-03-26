@@ -39,8 +39,8 @@
     input-type = <INPUT_EV_REL>;
     codes = <INPUT_REL_X INPUT_REL_Y>;
     sensor-dpi = <1200>;
-    min-factor = <12>;    /* 前回の半分: 0.012倍。極小の動きをドット単位で。 */
-    max-factor = <35>;    /* 前回の半分: 0.035倍。激しく動かしても非常に静かな移動量。 */
+    min-factor = <4>;     /* 前回の3分の1: 0.004倍。顕微鏡のような精密さ。 */
+    max-factor = <11>;    /* 前回の3分の1: 0.011倍。加速しても非常にゆっくり。 */
     speed-threshold = <400>; 
     speed-max = <1200>; 
     acceleration-exponent = <1200>; 

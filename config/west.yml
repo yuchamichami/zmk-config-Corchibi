@@ -6,7 +6,12 @@ manifest:
       url-base: https://github.com/yuchamichami
     - name: badjeff
       url-base: https://github.com/badjeff
+    - name: nuovotaka
+      url-base: https://github.com/nuovotaka
   projects:
+    - name: zmk-pointing-acceleration-alpha
+      remote: nuovotaka
+      revision: main
     - name: zmk
       remote: zmkfirmware
       revision: 354cff9

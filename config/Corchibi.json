@@ -11,7 +11,7 @@
         { "row": 0, "col": 4, "x": 4, "y": 0, "label": "R" },
         { "row": 0, "col": 5, "x": 5, "y": 0, "label": "T" },
 
-        { "row": 0, "col": 6, "x": 1, "y": 3, "label": "TAB" },
+        { "row": 0, "col": 6, "x": 0, "y": 1, "label": "TAB" },
         { "row": 0, "col": 7, "x": 1, "y": 1, "label": "A" },
         { "row": 0, "col": 8, "x": 2, "y": 1, "label": "S" },
         { "row": 0, "col": 9, "x": 3, "y": 1, "label": "D" },
@@ -27,7 +27,7 @@
         { "row": 0, "col": 18, "x": 5, "y": 2, "label": "B" },
 
         { "row": 0, "col": 19, "x": 0, "y": 3, "label": "CTRL" },
-        { "row": 0, "col": 20, "x": 0, "y": 1, "label": "CMD" },
+        { "row": 0, "col": 20, "x": 1, "y": 3, "label": "CMD" },
         { "row": 0, "col": 21, "x": 2, "y": 3, "label": "OPT" },
         { "row": 0, "col": 22, "x": 3, "y": 3, "label": "L1" },
         { "row": 0, "col": 23, "x": 4, "y": 3, "label": "L2" },

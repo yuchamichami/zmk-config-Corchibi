@@ -4,32 +4,125 @@
 #include <dt-bindings/zmk/mouse.h>
 
 / {
+    behaviors {
+        hm: homerow_mod {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <125>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+        };
+    };
+
+    macros {
+        bracket: bracket {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings
+                = <&kp LANG2>
+                , <&macro_press &kp LSHFT>
+                , <&macro_tap &kp N9 &kp N0>
+                , <&macro_release &kp LSHFT>
+                , <&macro_tap &kp LEFT &kp LANG1>
+                ;
+        };
+
+        launcher: launcher {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_press &kp LALT &kp LGUI>
+                , <&macro_tap &kp SPACE>
+                , <&macro_release &kp LALT &kp LGUI>
+                ;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        combo_capslock {
+            key-positions = <13 38>;  /* F + J */
+            bindings = <&kp CAPSLOCK>;
+        };
+
+        combo_printscreen {
+            key-positions = <37 35 32>;  /* U + I + O */
+            bindings = <&kp PRINTSCREEN>;
+        };
+
+        combo_lang2 {
+            key-positions = <11 13>;  /* D + F */
+            bindings = <&kp LANG2>;
+        };
+
+        combo_lang1 {
+            key-positions = <36 38>;  /* K + J */
+            bindings = <&kp LANG1>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
+        /* Layer 0: Default QWERTY + Homerow Mods
+         *
+         * Left physical layout:
+         * (0,0)ESC  (1,0)Q    (2,0)W    (3,0)E    (4,0)R    (5,0)T
+         * (0,1)TAB  (1,1)A*   (2,1)S*   (3,1)D*   (4,1)F*   (5,1)G    (6,1)--
+         * (0,2)SHFT (1,2)Z    (2,2)X    (3,2)C    (4,2)V    (5,2)B
+         * (0,3)CTRL (1,3)ALT  (2,3)GUI  (3,3)MO3  (4,3)MO5  (5,3)SPC
+         *
+         * Right physical layout:
+         *           (10,0)Y   (11,0)U   (12,0)I*  (13,0)O   (14,0)P   (15,0)-
+         * (9,1)--   (10,1)H   (11,1)J*  (12,1)K*  (13,1)L*  (14,1);*  (15,1)ENT*
+         *           (10,2)N   (11,2)M   (12,2),   (13,2).   (14,2)-   (15,2)RSHFT
+         *           (10,3)TB  (11,3)BS  (12,3)MO4 (13,3)LEFT(14,3)DN  (15,3)RT
+         *
+         * * = homerow mod or layer-tap
+         * TB = trackball (no key)
+         */
         default_layer {
             bindings = <
-/* Left: 25 keys */
-&kp ESC   &kp TAB   &kp LSHFT &kp LCTRL
-&kp A     &kp Z     &kp LGUI  &kp W
-&kp X     &kp LALT  &kp E     &kp D
-&kp R     &kp F     &kp V     &mo 1
-&kp G     &kp B     &mo 2     &kp N8
-&kp Q     &kp S     &kp C     &kp T     &mo 3
+/* Left: col 0-24 */
+/* c0(0,0)    c1(0,1)    c2(0,2)     c3(0,3)   */
+   &kp ESC    &kp TAB    &kp LSHFT   &kp LCTRL
+/* c4(1,1)        c5(1,2) c6(1,3)    c7(2,0) */
+   &hm RSHFT A   &kp Z   &kp LALT   &kp W
+/* c8(2,2) c9(2,3)    c10(3,0) c11(3,1)      */
+   &kp X   &kp LGUI   &kp E    &hm LALT D
+/* c12(4,0) c13(4,1)       c14(4,2) c15(3,3) */
+   &kp R    &hm LGUI F    &kp V    &mo 3
+/* c16(5,1) c17(5,2) c18(4,3) c19(6,1) */
+   &kp G    &kp B    &mo 5    &none
+/* c20(1,0) c21(2,1)       c22(3,2) c23(5,0) c24(5,3)  */
+   &kp Q    &hm LCTRL S   &kp C    &kp T    &kp SPACE
 
-/* Right: 25 keys */
-&kp BSPC &kp RET &kp QMARK &kp RIGHT
-&kp COLON &kp UP &kp DOWN &kp O
-&kp DOT &kp RIGHT &lt 2 I &kp K
-&kp U &kp J &kp M &kp N4
-&kp H &kp N &mo 3 &kp N8
-&kp P &kp L &kp COMMA &kp Y &kp SPACE
+/* Right: col 25-49 */
+/* c25(15,0)  c26(15,1)   c27(15,2)  c28(15,3)  */
+   &kp MINUS  &lt 6 RET   &kp RSHFT  &kp RIGHT
+/* c29(14,1)        c30(14,2)  c31(14,3) c32(13,0) */
+   &hm LSHFT SEMI  &kp MINUS  &kp DOWN  &kp O
+/* c33(13,2) c34(13,3) c35(12,0) c36(12,1)     */
+   &kp DOT   &kp LEFT  &lt 2 I   &hm RALT K
+/* c37(11,0) c38(11,1)      c39(11,2) c40(12,3) */
+   &kp U     &hm RGUI J    &kp M     &mo 4
+/* c41(10,1) c42(10,2) c43(11,3)  c44(9,1) */
+   &kp H     &kp N     &kp BSPC   &none
+/* c45(14,0) c46(13,1)      c47(12,2)  c48(10,0) c49(10,3) */
+   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &none
             >;
         };
 
-        layer_1 {
+        /* Layer 1: Auto-mouse (trackball triggered) */
+        mouse_layer {
             bindings = <
-/* Left: 25 keys */
 &trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &trans
@@ -37,7 +130,6 @@
 &trans &trans &trans &trans
 &trans &trans &trans &trans &trans
 
-/* Right: 25 keys */
 &trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &mkp MB3
@@ -47,9 +139,9 @@
             >;
         };
 
-        layer_2 {
+        /* Layer 2: Scroll (trackball Y-axis → scroll, activated by I hold) */
+        scroll_layer {
             bindings = <
-/* Left: 25 keys */
 &trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &trans
@@ -57,7 +149,6 @@
 &trans &trans &trans &trans
 &trans &trans &trans &trans &trans
 
-/* Right: 25 keys */
 &trans &trans &trans &trans
 &trans &trans &trans &trans
 &trans &trans &trans &trans
@@ -67,23 +158,117 @@
             >;
         };
 
-        layer_3 {
+        /* Layer 3: Symbols (from Cornix Layer 1)
+         *
+         * Left:
+         * --     '      "      !      ⌘⇧5   ~
+         * --     @      ;      $      ⌘=     ⌘⇧↓   --
+         * --     `      *      :      ⌘-     \
+         * --     --     --     [hold] --     --
+         *
+         * Right:
+         *        ^      (      )      )      %      =
+         * --     #      [      ]      ]      |      !
+         *        &      {      }      --     /      ?
+         *        --     --     --     --     ⌘/     --
+         */
+        symbol_layer {
             bindings = <
-/* Left: 25 keys */
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans &trans
+/* Left */
+&none      &none      &none      &none
+&kp AT     &kp GRAVE  &none      &kp DQT
+&kp STAR   &none      &kp EXCL   &kp DLLR
+&kp LS(LG(N5)) &kp LG(EQUAL) &kp LG(MINUS) &trans
+&kp LS(LG(DOWN)) &kp BSLH &none &none
+&kp SQT    &kp SEMI   &kp COLON  &kp TILDE  &none
 
-/* Right: 25 keys */
-&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &bt BT_CLR &trans
+/* Right */
+&kp EQUAL  &kp EXCL   &kp QMARK  &none
+&kp PIPE   &kp FSLH   &kp LG(FSLH) &kp RPAR
+&none      &none      &kp RPAR   &kp RBKT
+&kp LPAR   &kp LBKT   &kp LBRC   &none
+&kp HASH   &kp AMPS   &none      &none
+&kp PRCNT  &kp RBKT   &kp RBRC   &kp CARET  &none
+            >;
+        };
+
+        /* Layer 4: Alt Combos (from Cornix Layer 4)
+         *
+         * Left: Alt+Q/W/E/R/T, Alt+A/S/D/F/G, Alt+Z/X/C/V/B
+         * Right: mostly transparent
+         */
+        alt_layer {
+            bindings = <
+/* Left */
+&none       &none       &none       &none
+&kp LA(A)   &kp LA(Z)   &none       &kp LA(W)
+&kp LA(X)   &none       &kp LA(E)   &kp LA(D)
+&kp LA(R)   &kp LA(F)   &kp LA(V)   &none
+&kp LA(G)   &kp LA(B)   &none       &none
+&kp LA(Q)   &kp LA(S)   &kp LA(C)   &kp LA(T)   &none
+
+/* Right */
+&none &none &none &none
+&none &none &none &none
+&none &none &none &kp K
+&none &kp J &none &trans
+&none &none &none &none
+&none &none &none &none &none
+            >;
+        };
+
+        /* Layer 5: Numpad (from Cornix Layer 3)
+         *
+         * Left: bracket macro on A, F10 on F
+         *
+         * Right:
+         *        *      7      8      9      =      --
+         * --     -      4      5      6      /      --
+         *        +      1      2      3      .      ,
+         *        --     BS     0      --     --     --
+         */
+        numpad_layer {
+            bindings = <
+/* Left */
+&none     &none     &none     &none
+&bracket  &none     &none     &none
+&none     &none     &none     &none
+&none     &kp F10   &none     &none
+&none     &none     &trans    &none
+&none     &none     &none     &none     &none
+
+/* Right */
+&none          &none         &kp COMMA    &none
+&kp KP_DIVIDE  &kp KP_DOT   &none        &kp KP_N9
+&kp KP_N3      &none         &kp KP_N8   &kp KP_N5
+&kp KP_N7      &kp KP_N4    &kp KP_N1   &kp KP_N0
+&kp KP_MINUS   &kp KP_PLUS  &kp BSPC    &none
+&kp EQUAL      &kp KP_N6    &kp KP_N2   &kp KP_MULTIPLY  &none
+            >;
+        };
+
+        /* Layer 6: BT & Special (Cornix Layer 5 + BT)
+         *
+         * Left: launcher macro on A, Ctrl+Alt+Gui combos on S/E/C
+         * Right: BT_SEL 0-3 on outer keys, BT_CLR on Y
+         */
+        bt_layer {
+            bindings = <
+/* Left */
+&none      &none      &none      &none
+&launcher  &none      &none      &none
+&none      &none      &kp LC(LA(LG(E))) &none
+&none      &none      &kp LC(LA(LG(C))) &none
+&none      &none      &none      &none
+&none      &kp LC(LA(LG(S))) &none &none &none
+
+/* Right */
+&bt BT_SEL 0 &trans    &bt BT_SEL 2 &bt BT_SEL 3
+&bt BT_SEL 1 &none     &none        &none
+&none        &none     &none        &none
+&none        &none     &none        &none
+&none        &none     &none        &none
+&none        &none     &none        &bt BT_CLR &none
             >;
         };
     };

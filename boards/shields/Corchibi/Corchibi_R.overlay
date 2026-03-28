@@ -40,7 +40,7 @@
     codes = <INPUT_REL_X INPUT_REL_Y>;
     sensitivity = <10>; 
     min-factor = <1000>; 
-    max-factor = <1000>; 
+    max-factor = <2000>; 
     speed-threshold = <400>;   
     speed-max = <3000>;        
     acceleration-exponent = <1>; 

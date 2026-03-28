@@ -83,7 +83,7 @@
          *           (10,0)Y   (11,0)U   (12,0)I*  (13,0)O   (14,0)P   (15,0)-
          * (9,1)--   (10,1)H   (11,1)J*  (12,1)K*  (13,1)L*  (14,1);*  (15,1)ENT*
          *           (10,2)N   (11,2)M   (12,2),   (13,2).   (14,2)-   (15,2)RSHFT
-         *           (10,3)TB  (11,3)BS  (12,3)MO4 (13,3)LEFT(14,3)DN  (15,3)RT
+         *           (10,3)MO4 (11,3)BS  (12,3)TB  (13,3)LEFT(14,3)DN  (15,3)RT
          *
          * * = homerow mod or layer-tap
          * TB = trackball (no key)
@@ -100,9 +100,9 @@
 /* c12(4,0) c13(4,1)       c14(4,2) c15(3,3) */
    &kp R    &hm LGUI F    &kp V    &mo 3
 /* c16(5,1) c17(5,2) c18(4,3) c19(6,1) */
-   &kp G    &kp B    &mo 5    &none
+   &lt 7 G  &kp B    &mo 5    &kp C_VOL_DN
 /* c20(1,0) c21(2,1)       c22(3,2) c23(5,0) c24(5,3)  */
-   &kp Q    &hm LCTRL S   &kp C    &kp T    &kp SPACE
+   &kp Q    &hm LCTRL S   &kp C    &kp T    &lt 1 SPACE
 
 /* Right: col 25-49 */
 /* c25(15,0)  c26(15,1)   c27(15,2)  c28(15,3)  */
@@ -112,11 +112,11 @@
 /* c33(13,2) c34(13,3) c35(12,0) c36(12,1)     */
    &kp DOT   &kp LEFT  &lt 2 I   &hm RALT K
 /* c37(11,0) c38(11,1)      c39(11,2) c40(12,3) */
-   &kp U     &hm RGUI J    &kp M     &mo 4
+   &kp U     &hm RGUI J    &kp M     &none
 /* c41(10,1) c42(10,2) c43(11,3)  c44(9,1) */
-   &kp H     &kp N     &kp BSPC   &none
+   &kp H     &kp N     &kp BSPC   &kp C_VOL_UP
 /* c45(14,0) c46(13,1)      c47(12,2)  c48(10,0) c49(10,3) */
-   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &none
+   &kp P     &hm RCTRL L   &kp COMMA  &kp Y     &mo 4
             >;
         };
 
@@ -241,7 +241,7 @@
 &none          &none         &kp COMMA    &none
 &kp KP_DIVIDE  &kp KP_DOT   &none        &kp KP_N9
 &kp KP_N3      &none         &kp KP_N8   &kp KP_N5
-&kp KP_N7      &kp KP_N4    &kp KP_N1   &kp KP_N0
+&kp KP_N7      &kp KP_N4    &kp KP_N1   &none
 &kp KP_MINUS   &kp KP_PLUS  &kp BSPC    &none
 &kp EQUAL      &kp KP_N6    &kp KP_N2   &kp KP_MULTIPLY  &none
             >;
@@ -269,6 +269,27 @@
 &none        &none     &none        &none
 &none        &none     &none        &none
 &none        &none     &none        &bt BT_CLR &none
+            >;
+        };
+        /* Layer 7: HJKL Navigation (G hold, from Cornix Layer 2)
+         *
+         * Right: H=LEFT, J=DOWN, K=UP, L=RIGHT (vim-style)
+         */
+        nav_layer {
+            bindings = <
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
+
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &kp UP
+&trans &kp DOWN &trans &trans
+&kp LEFT &trans &trans &trans
+&trans &kp RIGHT &trans &trans &trans
             >;
         };
     };

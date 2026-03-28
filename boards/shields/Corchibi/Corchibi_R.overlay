@@ -65,7 +65,6 @@
     device = <&trackball_R>;
     input-processors =
         <&zip_report_rate_limit 8>,
-        <&zip_temp_layer 1 300>,
         <&pointer_accel>;
 
     scroll_layer {

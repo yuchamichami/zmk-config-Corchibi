@@ -139,9 +139,9 @@
 &trans &trans &trans &trans &trans
 
 &trans &trans &trans &trans
-&kp LC(TAB) &trans &trans &kp LG(RBKT)
-&trans &trans &trans &mo 2
-&kp LG(LBKT) &mkp MB1 &kp LC(LS(TAB)) &trans
+&trans &trans &trans &kp LG(RIGHT)
+&kp LC(TAB) &trans &trans &mo 2
+&kp LG(LEFT) &mkp MB1 &kp LC(LS(TAB)) &trans
 &trans &trans &trans &trans
 &trans &mkp MB2 &trans &trans &trans
             >;

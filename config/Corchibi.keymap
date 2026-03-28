@@ -200,9 +200,9 @@
         alt_layer {
             bindings = <
 /* Left */
-&none       &none       &none       &none
-&kp LA(A)   &kp LA(Z)   &none       &kp LA(W)
-&kp LA(X)   &none       &kp LA(E)   &kp LA(D)
+&trans      &trans      &trans      &trans
+&kp LA(A)   &kp LA(Z)   &trans      &kp LA(W)
+&kp LA(X)   &trans      &kp LA(E)   &kp LA(D)
 &kp LA(R)   &kp LA(F)   &kp LA(V)   &none
 &kp LA(G)   &kp LA(B)   &none       &none
 &kp LA(Q)   &kp LA(S)   &kp LA(C)   &kp LA(T)   &none

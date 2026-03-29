@@ -21,7 +21,7 @@ string(
 # Only report motion if abs(x)+abs(y) > 5 (same threshold as PMW3610)
 string(
   REPLACE "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\tif (cfg->axis_x >= 0) {"
-          "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\t\/\/ Movement threshold filter (like PMW3610 MOVEMENT_THRESHOLD=5)\n\tif (abs(x) + abs(y) <= 5) {\n\t\tk_work_submit(&data->motion_work);\n\t\treturn;\n\t}\n\n\tif (cfg->axis_x >= 0) {"
+          "\tLOG_DBG(\"x=%4d y=%4d\", x, y);\n\n\t\/\/ Movement threshold filter (like PMW3610 MOVEMENT_THRESHOLD=5)\n\tif (abs(x) + abs(y) <= 15) {\n\t\tk_work_submit(&data->motion_work);\n\t\treturn;\n\t}\n\n\tif (cfg->axis_x >= 0) {"
   FILE_CONTENT "${FILE_CONTENT}"
 )
 

@@ -11,6 +11,7 @@
 
 &kscan0 {
     compatible = "zmk,kscan-gpio-charlieplex";
+    poll-period-ms = <50>;
     gpios
         = <&gpio0 3 (GPIO_ACTIVE_HIGH)>
         , <&gpio0 28 (GPIO_ACTIVE_HIGH)>

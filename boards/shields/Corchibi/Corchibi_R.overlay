@@ -65,8 +65,7 @@
     status = "okay";
     device = <&trackball_R>;
     input-processors =
-        <&zip_report_rate_limit 8>,
-        <&pointer_accel>;
+        <&zip_report_rate_limit 8>;
 
     scroll_layer {
         layers = <2>;

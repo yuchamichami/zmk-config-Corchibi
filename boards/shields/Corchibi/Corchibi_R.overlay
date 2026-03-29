@@ -39,12 +39,12 @@
     input-type = <INPUT_EV_REL>;
     codes = <INPUT_REL_X INPUT_REL_Y>;
     sensitivity = <10>; 
-    min-factor = <4000>;
-    max-factor = <4000>;
+    min-factor = <2000>;
+    max-factor = <2000>;
     speed-threshold = <400>;
     speed-max = <3000>;
     acceleration-exponent = <1>;
-    sensor-dpi = <600>;       
+    sensor-dpi = <1200>;       
 };
 
 / {
@@ -65,7 +65,8 @@
     status = "okay";
     device = <&trackball_R>;
     input-processors =
-        <&zip_report_rate_limit 8>;
+        <&zip_report_rate_limit 8>,
+        <&pointer_accel>;
 
     scroll_layer {
         layers = <2>;
@@ -93,8 +94,8 @@
         reg = <0x73>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        res-x-cpi = <600>;
-        res-y-cpi = <600>;
+        res-x-cpi = <1200>;
+        res-y-cpi = <1200>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
     };
@@ -104,8 +105,8 @@
         reg = <0x75>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        res-x-cpi = <600>;
-        res-y-cpi = <600>;
+        res-x-cpi = <1200>;
+        res-y-cpi = <1200>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
     };

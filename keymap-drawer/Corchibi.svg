@@ -155,11 +155,9 @@ path.combo { stroke: #7f7f7f; }
 .keypos-19 use[href="#trackball_19mm"] {
   width: 140px !important;
   height: 140px !important;
-  transform: scale(2) !important;
+  transform: scale(5) !important;
   }
 .keypos-44 use[href="#trackball_19mm"] {
-  width: 180px !important;
-  height: 180px !important;
   transform: scale(3) !important;
   }
 </style>

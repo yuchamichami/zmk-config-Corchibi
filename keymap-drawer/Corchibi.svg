@@ -152,11 +152,9 @@ text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
 }
-.keypos-24,.keypos-25 use[href="#trackball_19mm"] {
+.keypos-19,.keypos-44 use[href="#trackball_19mm"] {
   width: 62px !important;
   height: 62px !important;
-  x: 0px !important;
-  y: 0px !important;
   transform: scale(1) !important;
   }
 </style>

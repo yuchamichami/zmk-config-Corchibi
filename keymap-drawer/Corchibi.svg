@@ -1,4 +1,21 @@
 <svg width="956" height="1176" viewBox="0 0 956 1176" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>/* start glyphs */
+<svg id="trackball_19mm">
+<svg id="trackball_19mm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#dddddd"/>
+    </radialGradient>
+  </defs>
+  <!-- Square base -->
+  <rect x="8" y="8" fill="#ffffff" stroke="#000000"/>
+  <!-- Trackball circle -->
+  <ellipse cx="48" cy="48" rx="47.5" ry="47.5" fill="url(#trackball-gradient)" stroke="#000000"/>
+</svg>
+
+</svg>
+</defs>/* end glyphs */
 <style>/* inherit to force styles through use tags */
 svg path {
     fill: inherit;
@@ -218,7 +235,8 @@ path.combo { stroke: #7f7f7f; }
 </a></g>
 <g transform="translate(364, 84)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">8</text>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-7" y="-7" height="14" width="14.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="24" class="key hold">Scroll</text>
 </g>
 <g transform="translate(84, 28)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -322,7 +340,8 @@ path.combo { stroke: #7f7f7f; }
 </a></g>
 <g transform="translate(532, 84)" class="key keypos-44">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">8</text>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-7" y="-7" height="14" width="14.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="24" class="key hold"><tspan style="font-size: 88%">Pointing</tspan></text>
 </g>
 <g transform="translate(812, 28)" class="key keypos-45">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>

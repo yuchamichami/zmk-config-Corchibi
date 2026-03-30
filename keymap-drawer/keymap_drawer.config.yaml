@@ -33,7 +33,12 @@ draw_config:
     rx: 4
     ry: 4
   svg_extra_style: |
-    .keypos-19,.keypos-44 use[href="#trackball_19mm"] {
+    .keypos-19 use[href="#trackball_19mm"] {
+      width: 62px !important;
+      height: 62px !important;
+      transform: scale(1) !important;
+      }
+    .keypos-44 use[href="#trackball_19mm"] {
       width: 62px !important;
       height: 62px !important;
       transform: scale(1) !important;

@@ -36,12 +36,12 @@ draw_config:
     .keypos-19 use[href="#trackball_19mm"] {
       width: 62px !important;
       height: 62px !important;
-      transform: scale(1) !important;
+      transform: scale(2) !important;
       }
     .keypos-44 use[href="#trackball_19mm"] {
       width: 62px !important;
       height: 62px !important;
-      transform: scale(1) !important;
+      transform: scale(3) !important;
       }
 
   footer_text: Created with <a href="https://github.com/caksoylar/keymap-drawer">keymap-drawer</a>

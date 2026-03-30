@@ -25,15 +25,15 @@
 &kp ESC   &kp TAB   &kp LSHFT &kp LCTRL
 &kp A     &kp Z     &kp LGUI  &kp W
 &kp X     &kp LALT  &kp E     &kp D
-&kp R     &kp F     &kp V     &mo 1
-&kp G     &kp B     &mo 2     &TB_scroll
+&kp R     &kp F     &kp V     &TB_scroll
+&kp G     &kp B     &mo 2     &TB_mouse
 &kp Q     &kp S     &kp C     &kp T     &mo 3
 
 /* Right: 25 keys */
 &kp BSPC &kp RET &kp QMARK &kp RIGHT
 &kp COLON &kp UP &kp DOWN &kp O
 &kp DOT &kp RIGHT &lt 2 I &kp K
-&kp U &kp J &kp M &kp N4
+&kp U &kp J &kp M &TB_scroll
 &kp H &kp N &mo 3 &TB_mouse
 &kp P &kp L &kp COMMA &kp Y &kp SPACE
             >;

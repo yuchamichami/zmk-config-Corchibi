@@ -33,14 +33,12 @@ draw_config:
     rx: 4
     ry: 4
   svg_extra_style: |
-    .keypos-19 use[href="#trackball_19mm"] {
-      width: 140px !important;
-      height: 140px !important;
-      transform: scale(5) !important;
-      }
+    .keypos-19 use[href="#trackball_19mm"],
     .keypos-44 use[href="#trackball_19mm"] {
-      transform: scale(3) !important;
-      }
+      x: 0px !important;
+      y: 0px !important;
+      transform: scale(5) !important;
+    }
 
   footer_text: Created with <a href="https://github.com/caksoylar/keymap-drawer">keymap-drawer</a>
   shrink_wide_legends: 7

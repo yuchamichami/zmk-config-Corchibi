@@ -33,6 +33,14 @@ draw_config:
     rx: 4
     ry: 4
   svg_extra_style: |
+    svg.keymap {
+      background-color: #C3C3C3 !important;
+      font-family: Ubuntu Mono, Inconsolata, Consolas, Liberation Mono, Menlo, monospace;
+      font-size: 14px;
+      font-weight: bold;
+      text-rendering: optimizeLegibility;
+    }
+    text { fill: #000000; }
     .key use[href="#trackball_19mm"] {
       width: 100% !important;
       height: 100% !important;

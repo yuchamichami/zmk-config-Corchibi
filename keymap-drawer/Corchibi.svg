@@ -151,7 +151,15 @@ text.label, text.footer { stroke: black; }
 text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
-}</style>
+}
+.keypos-13,.keypos-32 use[href="#trackball_19mm"] {
+  width: 62px !important;
+  height: 62px !important;
+  x: 0px !important;
+  y: 0px !important;
+  transform: scale(1) !important;
+  }
+</style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>
 <g transform="translate(0, 56)">

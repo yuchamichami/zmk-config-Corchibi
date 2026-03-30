@@ -71,12 +71,12 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: $$trackball_19mm$$, h: Pointing}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: $$trackball_19mm$$, h: Scroll}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -96,12 +96,12 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: $$trackball_19mm$$, h: Scroll}
   - {t: ▽, type: trans}
   - '&mkp MB2'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {t: $$trackball_19mm$$, h: Scroll}
   '2':
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

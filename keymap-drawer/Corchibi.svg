@@ -455,9 +455,10 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(364, 84)" class="key trans keypos-19">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(364, 84)" class="key keypos-19">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-29" y="-29" height="58" width="58.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="24" class="key hold"><tspan style="font-size: 88%">Pointing</tspan></text>
 </g>
 <g transform="translate(84, 28)" class="key trans keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -475,9 +476,10 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(308, 196)" class="key trans keypos-24">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(308, 196)" class="key keypos-24">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-29" y="-29" height="58" width="58.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="24" class="key hold">Scroll</text>
 </g>
 <g transform="translate(868, 28)" class="key trans keypos-25">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -559,9 +561,10 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(532, 84)" class="key trans keypos-44">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(532, 84)" class="key keypos-44">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-29" y="-29" height="58" width="58.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="24" class="key hold">Scroll</text>
 </g>
 <g transform="translate(812, 28)" class="key trans keypos-45">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -581,9 +584,10 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(588, 196)" class="key trans keypos-49">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(588, 196)" class="key keypos-49">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-29" y="-29" height="58" width="58.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="24" class="key hold">Scroll</text>
 </g>
 </g>
 </g>

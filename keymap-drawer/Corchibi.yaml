@@ -20,7 +20,7 @@ layers:
   - G
   - B
   - '2'
-  - '8'
+  - {t: $$trackball_19mm$$, h: Scroll}
   - Q
   - S
   - C
@@ -45,7 +45,7 @@ layers:
   - H
   - N
   - '3'
-  - '8'
+  - {t: $$trackball_19mm$$, h: Pointing}
   - P
   - L
   - ','

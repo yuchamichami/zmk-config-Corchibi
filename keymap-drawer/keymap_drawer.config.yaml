@@ -1,4 +1,8 @@
 draw_config:
+  n_columns: 2
+  draw_key_sides: true
+  append_colon_to_layer_header: true
+  small_pad: 4.0
   key_w: 60.0
   key_h: 56.0
   split_gap: 30.0
@@ -35,7 +39,20 @@ draw_config:
   glyph_tap_size: 14
   glyph_hold_size: 12
   glyph_shifted_size: 10
-  glyphs: {}
+  glyphs:
+    trackball: |
+      <svg id="trackball_19mm" xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+        <defs>
+          <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#dddddd"/>
+          </radialGradient>
+        </defs>
+        <!-- Square base -->
+        <rect x="8" y="8" width="80" height="80" fill="#ffffff" stroke="#000000"/>
+        <!-- Trackball circle -->
+        <ellipse cx="48" cy="48" rx="47.5" ry="47.5" fill="url(#trackball-gradient)" stroke="#000000"/>
+      </svg>
 parse_config:
   preprocess: true
   skip_binding_parsing: false
@@ -200,3 +217,7 @@ parse_config:
   zmk_combos: {}
   zmk_preamble: '#define KEYMAP_DRAWER'
   zmk_additional_includes: []
+  # ----- Raw bindings for encoders/trackball -----
+  raw_binding_map:
+    '&TB_mouse':  { tap: '$$trackball_19mm$$', hold: 'Pointing' }
+    '&TB_scroll':  { tap: '$$trackball_19mm$$', hold: 'Scroll' }

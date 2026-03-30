@@ -4,6 +4,18 @@
 #include <dt-bindings/zmk/mouse.h>
 
 / {
+    behaviors {
+        TB_mouse: TB_mouse {
+            compatible = "zmk,behavior-none";
+            #binding-cells = <0>;
+        };
+
+        TB_scroll: TB_scroll {
+            compatible = "zmk,behavior-none";
+            #binding-cells = <0>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -14,7 +26,7 @@
 &kp A     &kp Z     &kp LGUI  &kp W
 &kp X     &kp LALT  &kp E     &kp D
 &kp R     &kp F     &kp V     &mo 1
-&kp G     &kp B     &mo 2     &kp N8
+&kp G     &kp B     &mo 2     &TB_scroll
 &kp Q     &kp S     &kp C     &kp T     &mo 3
 
 /* Right: 25 keys */
@@ -22,7 +34,7 @@
 &kp COLON &kp UP &kp DOWN &kp O
 &kp DOT &kp RIGHT &lt 2 I &kp K
 &kp U &kp J &kp M &kp N4
-&kp H &kp N &mo 3 &kp N8
+&kp H &kp N &mo 3 &TB_mouse
 &kp P &kp L &kp COMMA &kp Y &kp SPACE
             >;
         };

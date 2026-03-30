@@ -38,6 +38,13 @@ draw_config:
       width: 100% !important;
       height: 100% !important;
     }
+    .keypos-19 text.hold, .keypos-44 text.hold {
+      fill: #000000 !important;
+      font-size: 12px !important;
+      font-weight: bold !important;
+      display: block !important;
+      transform: translate(10px, -10px) !important;
+    }
 
   footer_text: Created with <a href="https://github.com/caksoylar/keymap-drawer">keymap-drawer</a>
   shrink_wide_legends: 7

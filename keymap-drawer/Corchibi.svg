@@ -160,7 +160,7 @@ path.combo { stroke: #7f7f7f; }
   font-size: 12px !important;
   font-weight: bold !important;
   display: block !important;
-  transform: translate(10px, -10px) !important;
+  transform: translate(0px, -10px) !important;
 }
 </style>
 <g transform="translate(30, 0)" class="layer-default">

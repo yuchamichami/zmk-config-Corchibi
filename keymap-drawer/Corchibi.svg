@@ -155,12 +155,12 @@ path.combo { stroke: #7f7f7f; }
 .keypos-19 use[href="#trackball_19mm"] {
   width: 62px !important;
   height: 62px !important;
-  transform: scale(1) !important;
+  transform: scale(2) !important;
   }
 .keypos-44 use[href="#trackball_19mm"] {
   width: 62px !important;
   height: 62px !important;
-  transform: scale(1) !important;
+  transform: scale(3) !important;
   }
 </style>
 <g transform="translate(30, 0)" class="layer-default">

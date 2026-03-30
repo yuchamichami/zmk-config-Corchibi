@@ -35,9 +35,8 @@ draw_config:
   svg_extra_style: |
     .keypos-19 use[href="#trackball_19mm"],
     .keypos-44 use[href="#trackball_19mm"] {
-      x: 0px !important;
-      y: 0px !important;
-      transform: scale(5) !important;
+      width: 100% !important;
+      height: 100% !important;
     }
 
   footer_text: Created with <a href="https://github.com/caksoylar/keymap-drawer">keymap-drawer</a>
@@ -55,9 +54,7 @@ draw_config:
             <stop offset="100%" stop-color="#dddddd"/>
           </radialGradient>
         </defs>
-        <!-- Square base -->
         <rect x="8" y="8" width="80" height="80" fill="#ffffff" stroke="#000000"/>
-        <!-- Trackball circle -->
         <ellipse cx="48" cy="48" rx="47.5" ry="47.5" fill="url(#trackball-gradient)" stroke="#000000"/>
       </svg>
 parse_config:

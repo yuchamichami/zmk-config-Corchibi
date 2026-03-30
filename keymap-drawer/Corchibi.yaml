@@ -16,11 +16,11 @@ layers:
   - R
   - F
   - V
-  - '1'
+  - {t: $$trackball_19mm$$, h: Scroll}
   - G
   - B
   - '2'
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - {t: $$trackball_19mm$$, h: Pointing}
   - Q
   - S
   - C
@@ -41,7 +41,7 @@ layers:
   - U
   - J
   - M
-  - '4'
+  - {t: $$trackball_19mm$$, h: Scroll}
   - H
   - N
   - '3'
@@ -67,7 +67,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

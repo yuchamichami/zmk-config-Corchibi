@@ -155,6 +155,13 @@ path.combo { stroke: #7f7f7f; }
   width: 100% !important;
   height: 100% !important;
 }
+.keypos-19 text.hold, .keypos-44 text.hold {
+  fill: #000000 !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  display: block !important;
+  transform: translate(10px, -10px) !important;
+}
 </style>
 <g transform="translate(30, 0)" class="layer-default">
 <text x="0" y="28" class="label" id="default">default:</text>

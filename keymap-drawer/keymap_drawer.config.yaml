@@ -43,7 +43,7 @@ draw_config:
       font-size: 12px !important;
       font-weight: bold !important;
       display: block !important;
-      transform: translate(10px, -10px) !important;
+      transform: translate(0px, -10px) !important;
     }
 
   footer_text: Created with <a href="https://github.com/caksoylar/keymap-drawer">keymap-drawer</a>

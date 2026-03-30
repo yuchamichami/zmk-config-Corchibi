@@ -150,12 +150,11 @@ text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
 }
-.keypos-19 use[href="#trackball_19mm"],
-.keypos-44 use[href="#trackball_19mm"] {
+.key use[href="#trackball_19mm"] {
   width: 100% !important;
   height: 100% !important;
 }
-.keypos-19 text.hold, .keypos-44 text.hold {
+.key:has(use[href="#trackball_19mm"]) text.hold {
   fill: #000000 !important;
   font-size: 12px !important;
   font-weight: bold !important;

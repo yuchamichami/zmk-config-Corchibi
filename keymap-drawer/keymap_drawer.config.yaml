@@ -47,17 +47,16 @@ draw_config:
   glyph_shifted_size: 10
   glyphs:
     trackball_19mm: |
-  trackball_19mm: |
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
-      <defs>
-        <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="100%" stop-color="#dddddd"/>
-        </radialGradient>
-      </defs>
-      <rect x="2" y="2" width="92" height="92" fill="#ffffff" stroke="#000000"/>
-      <ellipse cx="48" cy="48" rx="46" ry="46" fill="url(#trackball-gradient)" stroke="#000000"/>
-    </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+        <defs>
+          <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#dddddd"/>
+          </radialGradient>
+        </defs>
+        <rect x="2" y="2" width="92" height="92" fill="#ffffff" stroke="#000000"/>
+        <ellipse cx="48" cy="48" rx="46" ry="46" fill="url(#trackball-gradient)" stroke="#000000"/>
+      </svg>
 
 parse_config:
   preprocess: true

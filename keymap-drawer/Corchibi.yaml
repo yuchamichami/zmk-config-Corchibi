@@ -16,7 +16,7 @@ layers:
   - R
   - F
   - V
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - '1'
   - G
   - B
   - '2'
@@ -25,7 +25,7 @@ layers:
   - S
   - C
   - T
-  - '3'
+  - {t: $$trackball_19mm$$, h: Scroll}
   - BSPC
   - RET
   - '?'
@@ -41,7 +41,7 @@ layers:
   - U
   - J
   - M
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - '8'
   - H
   - N
   - '3'
@@ -50,7 +50,7 @@ layers:
   - L
   - ','
   - Y
-  - SPACE
+  - {t: $$trackball_19mm$$, h: Scroll}
   '1':
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -67,7 +67,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -178,7 +178,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {type: held}
+  - {t: ▽, type: trans}
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
   - {t: BT, h: '2'}
@@ -197,7 +197,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

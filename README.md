@@ -17,6 +17,7 @@
 
 <img src="keymap-drawer/Corchibi.svg" >
 
+- [トラボ等のモジュール配置をするには？](keymap-drawer/keymap-draw.md)
 ---
 
 ## ファームウェアの書き込み方法

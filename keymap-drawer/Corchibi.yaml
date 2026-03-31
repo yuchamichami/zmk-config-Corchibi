@@ -20,12 +20,12 @@ layers:
   - G
   - B
   - '2'
-  - {t: $$trackball_19mm$$, h: Pointing}
+  - {t: $$trackball_19mm$$, h: Scroll}
   - Q
   - S
   - C
   - T
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - {t: $$trackball_14mm$$, h: Mouse}
   - BSPC
   - RET
   - '?'
@@ -41,16 +41,16 @@ layers:
   - U
   - J
   - M
-  - '8'
+  - '4'
   - H
   - N
   - '3'
-  - {t: $$trackball_19mm$$, h: Pointing}
+  - {t: $$trackball_19mm$$, h: Mouse}
   - P
   - L
   - ','
   - Y
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - {t: $$trackball_14mm$$, h: Scroll}
   '1':
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -71,12 +71,12 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: $$trackball_19mm$$, h: Pointing}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -96,12 +96,12 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - '&mkp MB2'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - {t: ▽, type: trans}
   '2':
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

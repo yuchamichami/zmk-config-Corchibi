@@ -6,12 +6,21 @@
 
 / {
     behaviors {
-        TB_mouse: TB_mouse {
+        TB1_mouse: TB1_mouse {
             compatible = "zmk,behavior-none";
             #binding-cells = <0>;
         };
 
-        TB_scroll: TB_scroll {
+        TB1_scroll: TB1_scroll {
+            compatible = "zmk,behavior-none";
+            #binding-cells = <0>;
+        };
+        TB2_mouse: TB2_mouse {
+            compatible = "zmk,behavior-none";
+            #binding-cells = <0>;
+        };
+
+        TB2_scroll: TB2_scroll {
             compatible = "zmk,behavior-none";
             #binding-cells = <0>;
         };
@@ -22,25 +31,81 @@
 
         default_layer {
             bindings = <
-&kp ESC  &kp TAB  &kp LSHFT  &kp LCTRL  &kp A  &kp Z  &kp LGUI  &kp W  &kp X  &kp LALT  &kp E  &kp D  &kp R  &kp F  &kp V  &mo 1  &kp G  &kp B  &mo 2  &TB_mouse  &kp Q  &kp S  &kp C  &kp T  &TB_scroll  &kp BSPC  &kp RET  &kp QMARK  &kp RIGHT  &kp COLON  &kp UP  &kp DOWN  &kp O  &kp DOT  &kp RIGHT  &lt 2 I  &kp K  &kp U  &kp J  &kp M  &kp N8  &kp H  &kp N  &mo 3  &TB_mouse  &kp P  &kp L  &kp COMMA  &kp Y  &TB_scroll
+/* Left: 25 keys */
+&kp ESC   &kp TAB   &kp LSHFT &kp LCTRL
+&kp A     &kp Z     &kp LGUI  &kp W
+&kp X     &kp LALT  &kp E     &kp D
+&kp R     &kp F     &kp V     &mo 1
+&kp G     &kp B     &mo 2     &TB1_scroll
+&kp Q     &kp S     &kp C     &kp T     &TB2_mouse
+
+/* Right: 25 keys */
+&kp BSPC &kp RET &kp QMARK &kp RIGHT
+&kp COLON &kp UP &kp DOWN &kp O
+&kp DOT &kp RIGHT &lt 2 I &kp K
+&kp U &kp J &kp M &kp N4
+&kp H &kp N &mo 3 &TB1_mouse
+&kp P &kp L &kp COMMA &kp Y &TB2_scroll
             >;
         };
 
         layer_1 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &TB_mouse  &trans  &trans  &trans  &trans  &TB_scroll  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mkp MB3  &trans  &mkp MB1  &trans  &trans  &trans  &trans  &trans  &TB_scroll  &trans  &mkp MB2  &trans  &trans  &TB_scroll
+/* Left: 25 keys */
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
+
+/* Right: 25 keys */
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &mkp MB3
+&trans &mkp MB1 &trans &trans
+&trans &trans &trans &trans
+&trans &mkp MB2 &trans &trans &trans
             >;
         };
 
         layer_2 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+/* Left: 25 keys */
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
+
+/* Right: 25 keys */
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
             >;
         };
 
         layer_3 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &bt BT_CLR  &trans
+/* Left: 25 keys */
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans &trans
+
+/* Right: 25 keys */
+&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &trans
+&trans &trans &trans &bt BT_CLR &trans
             >;
         };
     };

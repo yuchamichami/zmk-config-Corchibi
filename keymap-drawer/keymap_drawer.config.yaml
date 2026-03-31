@@ -14,8 +14,8 @@ draw_config:
   n_columns: 1
   separate_combo_diagrams: false
   combo_diagrams_scale: 2
-  inner_pad_w: 2.0
-  inner_pad_h: 2.0
+  inner_pad_w: 1.0
+  inner_pad_h: 1.0
   outer_pad_w: 30.0
   outer_pad_h: 56.0
   line_spacing: 1.2
@@ -24,23 +24,34 @@ draw_config:
   small_pad: 2.0
   legend_rel_x: 0.0
   legend_rel_y: 0.0
-  draw_key_sides: false
+  draw_key_sides: true
   key_side_pars:
     rel_x: 0
-    rel_y: 4
+    rel_y: 0
     rel_w: 12
     rel_h: 12
-    rx: 4
-    ry: 4
+    rx: 8
+    ry: 8
   svg_extra_style: |
     svg.keymap {
-      background-color: #C3C3C3 !important;
+      background-color: #434343 !important;
       font-family: Ubuntu Mono, Inconsolata, Consolas, Liberation Mono, Menlo, monospace;
       font-size: 14px;
       font-weight: bold;
       text-rendering: optimizeLegibility;
     }
     text { fill: #000000; }
+    .key use[href="#trackball_14mm"] {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .key:has(use[href="#trackball_14mm"]) text.hold {
+      fill: #000000 !important;
+      font-size: 12px !important;
+      font-weight: bold !important;
+      display: block !important;
+      transform: translate(0px, -10px) !important;
+    }
     .key use[href="#trackball_19mm"] {
       width: 100% !important;
       height: 100% !important;
@@ -60,6 +71,17 @@ draw_config:
   glyph_hold_size: 12
   glyph_shifted_size: 10
   glyphs:
+    trackball_14mm: |
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+        <defs>
+          <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#dddddd"/>
+          </radialGradient>
+        </defs>
+        <rect x="2" y="2" width="92" height="92" fill="#ffffff" stroke="#000000"/>
+        <ellipse cx="48" cy="48" rx="36" ry="36" fill="url(#trackball-gradient)" stroke="#000000"/>
+      </svg>
     trackball_19mm: |
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <defs>
@@ -238,5 +260,7 @@ parse_config:
   zmk_additional_includes: []
   # ----- Raw bindings for encoders/trackball -----
   raw_binding_map:
-    '&TB_mouse':  { tap: '$$trackball_19mm$$', hold: 'Pointing' }
-    '&TB_scroll':  { tap: '$$trackball_19mm$$', hold: 'Scroll' }
+    '&TB1_mouse':  { tap: '$$trackball_19mm$$', hold: 'Mouse' }
+    '&TB1_scroll':  { tap: '$$trackball_19mm$$', hold: 'Scroll' }
+    '&TB2_mouse':  { tap: '$$trackball_14mm$$', hold: 'Mouse' }
+    '&TB2_scroll':  { tap: '$$trackball_14mm$$', hold: 'Scroll' }

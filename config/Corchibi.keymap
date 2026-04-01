@@ -1,7 +1,8 @@
+#include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/pointing.h>
 
 / {
     keymap {
@@ -9,81 +10,37 @@
 
         default_layer {
             bindings = <
-/* Left: 25 keys */
-&kp ESC   &kp TAB   &kp LSHFT &kp LCTRL
-&kp A     &kp Z     &kp LGUI  &kp W
-&kp X     &kp LALT  &kp E     &kp D
-&kp R     &kp F     &kp V     &mo 1
-&kp G     &kp B     &mo 2     &kp N8
-&kp Q     &kp S     &kp C     &kp T     &mo 3
-
-/* Right: 25 keys */
-&kp BSPC &kp RET &kp QMARK &kp RIGHT
-&kp COLON &kp UP &kp DOWN &kp O
-&kp DOT &kp RIGHT &lt 2 I &kp K
-&kp U &kp J &kp M &kp N4
-&kp H &kp N &mo 3 &kp N8
-&kp P &kp L &kp COMMA &kp Y &kp SPACE
+&kp ESC  &kp TAB  &kp LSHFT  &kp LCTRL  &kp A  &kp Z  &kp LGUI  &kp W  &kp X  &kp LALT  &kp E  &kp D  &kp R  &kp F  &kp V  &mo 1  &kp G  &kp B  &mo 2  &kp N8  &kp Q  &kp S  &kp C  &kp T  &kp SPACE  &kp BSPC  &kp RET  &kp QMARK  &kp RIGHT  &kp COLON  &kp UP  &kp DOWN  &kp O  &kp DOT  &kp RIGHT  &lt 5 I  &kp K  &kp U  &kp J  &kp M  &lt 5 A  &kp H  &kp N  &mo 3  &kp N8  &kp P  &kp L  &kp COMMA  &kp Y  &kp SPACE
             >;
         };
 
         layer_1 {
             bindings = <
-/* Left: 25 keys */
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans &trans
-
-/* Right: 25 keys */
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &mkp MB3
-&trans &mkp MB1 &trans &trans
-&trans &trans &trans &trans
-&trans &mkp MB2 &trans &trans &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &kp NUMBER_2  &trans  &trans  &kp NUMBER_3  &kp SEMICOLON  &kp NUMBER_4  &kp SLASH  &trans  &trans  &kp MINUS  &trans  &trans  &trans  &kp NUMBER_1  &kp DOUBLE_QUOTES  &trans  &kp NUMBER_5  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &kp NUMBER_9  &trans  &trans  &kp N8  &kp DOUBLE_QUOTES  &kp NUMBER_7  &kp EQUAL  &trans  &trans  &kp KP_PLUS  &trans  &trans  &trans  &kp NUMBER_0  &kp SQT  &trans  &kp NUMBER_6  &trans
             >;
         };
 
         layer_2 {
             bindings = <
-/* Left: 25 keys */
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans &trans
-
-/* Right: 25 keys */
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
         layer_3 {
             bindings = <
-/* Left: 25 keys */
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &bt BT_CLR  &trans
+            >;
+        };
 
-/* Right: 25 keys */
-&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &trans
-&trans &trans &trans &bt BT_CLR &trans
+        layer_4 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mkp MB3  &trans  &mkp MB1  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mkp MB2  &trans  &trans  &trans
+            >;
+        };
+
+        layer_5 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };

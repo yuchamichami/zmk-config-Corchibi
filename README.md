@@ -1,7 +1,7 @@
 
 アップデート履歴
 
-2026/04/01 オートマウス誤発動防止
+2026/04/01 [オートマウス誤発動防止](https://github.com/yuchamichami/zmk-config-Corchibi/pull/3)
 
 
 # Corchibi キー配列カスタマイズ手順

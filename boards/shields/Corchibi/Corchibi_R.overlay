@@ -38,7 +38,7 @@
 &pointer_accel {
     input-type = <INPUT_EV_REL>;
     codes = <INPUT_REL_X INPUT_REL_Y>;
-    sensitivity = <10>; 
+    sensitivity = <10>;
     min-factor = <1000>; 
     max-factor = <1000>; 
     speed-threshold = <400>;   
@@ -77,7 +77,6 @@
         <&zip_report_rate_limit 8>,
         <&auto_mouse_layer 1 700>,
         <&pointer_accel>;
-
     scroll_layer {
         layers = <2>;
         input-processors =
@@ -97,9 +96,8 @@
     clock-frequency = <I2C_BITRATE_FAST>;
     #address-cells = <1>;
     #size-cells = <0>;
-
     trackball_R: trackball_R@73 {
-        compatible = "pixart,pat912x";
+        compatible = "pixart,pat9125";
         reg = <0x73>;
         status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
@@ -108,9 +106,8 @@
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
     };
-
     trackball_R_scroll: trackball_R_scroll@75 {
-        compatible = "pixart,pat912x";
+        compatible = "pixart,pat9125";
         reg = <0x75>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;

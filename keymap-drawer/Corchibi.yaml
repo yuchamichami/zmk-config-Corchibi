@@ -203,7 +203,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - BT CLR
-  - {t: ▽, type: trans}
+  - '&studio_unlock'
   '4':
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

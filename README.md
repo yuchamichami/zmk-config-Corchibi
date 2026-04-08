@@ -1,8 +1,12 @@
 
-アップデート履歴
+■アップデート履歴
 
 2026/04/01 [オートマウス誤発動防止](https://github.com/yuchamichami/zmk-config-Corchibi/pull/3)
 
+
+■関連リンク
+サポートDiscordサーバー https://discord.gg/nryEcZ6YjU　
+基本的には購入者様向けのサーバーになります、購入検討されている方も興味があればご参加ください。
 
 # Corchibi キー配列カスタマイズ手順
 

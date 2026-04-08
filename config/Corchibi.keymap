@@ -11,14 +11,17 @@
             label = "TB19M";
             #binding-cells = <0>;
         };
+
         TB1_scroll: TB1_scroll {
             compatible = "zmk,behavior-none";
             #binding-cells = <0>;
         };
+
         TB2_mouse: TB2_mouse {
             compatible = "zmk,behavior-none";
             #binding-cells = <0>;
         };
+
         TB2_scroll: TB2_scroll {
             compatible = "zmk,behavior-none";
             #binding-cells = <0>;
@@ -30,7 +33,7 @@
 
         default_layer {
             bindings = <
-&kp ESC  &kp TAB  &kp LSHFT  &kp LCTRL  &kp A  &kp Z  &kp LGUI  &kp W  &kp X  &kp LALT  &kp E  &kp D  &kp R  &kp F  &kp V  &mo 1  &kp G  &kp B  &mo 2  &kp N8  &kp Q  &kp S  &kp C  &kp T  &kp SPACE  &kp BSPC  &kp RET  &kp QMARK  &kp RIGHT  &kp COLON  &kp UP  &kp DOWN  &kp O  &kp DOT  &kp RIGHT  &lt 5 I  &kp K  &kp U  &kp J  &kp M  &lt 5 A  &kp H  &kp N  &mo 3  &kp N8  &kp P  &kp L  &kp COMMA  &kp Y  &kp SPACE
+&kp ESC  &kp TAB  &kp LSHFT  &kp LCTRL  &kp A  &kp Z  &kp LGUI  &kp W  &kp X  &kp LALT  &kp E  &kp D  &kp R  &kp F  &kp V  &mo 1  &kp G  &kp B  &mo 2  &kp N9  &kp Q  &kp S  &kp C  &kp T  &kp SPACE  &kp BSPC  &kp RET  &kp QMARK  &kp RIGHT  &kp COLON  &kp UP  &kp DOWN  &kp O  &kp DOT  &kp RIGHT  &lt 5 I  &kp K  &kp U  &kp J  &kp M  &lt 5 A  &kp H  &kp N  &mo 3  &kp N8  &kp P  &kp L  &kp COMMA  &kp Y  &kp SPACE
             >;
         };
 

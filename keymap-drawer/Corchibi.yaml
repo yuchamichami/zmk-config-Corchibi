@@ -20,12 +20,12 @@ layers:
   - G
   - B
   - '2'
-  - {t: $$trackball_19mm$$, h: Scroll}
+  - '8'
   - Q
   - S
   - C
   - T
-  - {t: $$trackball_14mm$$, h: Mouse}
+  - SPACE
   - BSPC
   - RET
   - '?'
@@ -36,21 +36,21 @@ layers:
   - O
   - .
   - RIGHT
-  - {t: I, h: '2'}
+  - {t: I, h: '5'}
   - K
   - U
   - J
   - M
-  - '4'
+  - {t: A, h: '5'}
   - H
   - N
   - '3'
-  - {t: $$trackball_19mm$$, h: Mouse}
+  - '8'
   - P
   - L
   - ','
   - Y
-  - {t: $$trackball_14mm$$, h: Scroll}
+  - SPACE
   '1':
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -59,15 +59,23 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '2'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '3'
+  - ;
+  - '4'
+  - /
   - {t: ▽, type: trans}
   - {type: held}
+  - '-'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '1'
+  - '"'
+  - {t: ▽, type: trans}
+  - '5'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -76,31 +84,23 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '9'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '8'
+  - '"'
+  - '7'
+  - '='
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - KP PLUS
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '0'
+  - ''''
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - '&mkp MB3'
-  - {t: ▽, type: trans}
-  - '&mkp MB1'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - '&mkp MB2'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '6'
   - {t: ▽, type: trans}
   '2':
   - {t: ▽, type: trans}
@@ -126,7 +126,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - C
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -241,6 +241,9 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - '&mkp MB3'
+  - {t: ▽, type: trans}
+  - '&mkp MB1'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -248,10 +251,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '&mkp MB2'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -291,7 +291,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}

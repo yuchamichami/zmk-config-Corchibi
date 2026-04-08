@@ -79,7 +79,7 @@
         <&pointer_accel>;
 
     scroll_layer {
-        layers = <2>;
+        layers = <5>;  /* ← ここを2から5に修正しました！ */
         input-processors =
             <&zip_report_rate_limit 8>,
             <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,

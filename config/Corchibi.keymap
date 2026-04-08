@@ -77,3 +77,4 @@
 // bypass compiler strict warnings for auto_mouse_layer
 // fix endpoint count by forcing central role
 // remove invalid cmake configs
+// remove undefined moNa2 configs

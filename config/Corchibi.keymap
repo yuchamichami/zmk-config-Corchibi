@@ -73,3 +73,4 @@
 // apply DYA studio fixes
 // fix central role and remove advertising config
 // fix missing BLE central role
+// slim down R config and fix endpoints

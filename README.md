@@ -5,7 +5,7 @@
 
 
 ■関連リンク
-サポートDiscordサーバー https://discord.gg/nryEcZ6YjU　
+[サポートDiscordサーバー](https://discord.gg/nryEcZ6YjU　)
 基本的には購入者様向けのサーバーになります、購入検討されている方も興味があればご参加ください。
 
 # Corchibi キー配列カスタマイズ手順

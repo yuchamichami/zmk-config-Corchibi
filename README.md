@@ -3,6 +3,8 @@
 
 2026/04/01 [オートマウス誤発動防止](https://github.com/yuchamichami/zmk-config-Corchibi/pull/3)
 
+2026/04/11 ZMK v0.3ブランチ追加、ZMK Studio対応
+
 
 ■関連リンク
 [サポートDiscordサーバー](https://discord.gg/nryEcZ6YjU　)

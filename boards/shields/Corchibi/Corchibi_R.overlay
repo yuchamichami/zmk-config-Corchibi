@@ -48,6 +48,21 @@
 };
 
 / {
+    pointer_accel_slow: pointer_accel_slow {
+        compatible = "zmk,input-processor-acceleration";
+        status = "okay";
+        #input-processor-cells = <0>;
+        input-type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X INPUT_REL_Y>;
+        sensitivity = <10>;
+        min-factor = <1000>;
+        max-factor = <2500>;
+        speed-threshold = <300>;
+        speed-max = <2000>;
+        acceleration-exponent = <2>;
+        sensor-dpi = <600>;
+    };
+
     trackball_listener_R_scroll: trackball_listener_R_scroll {
         compatible = "zmk,input-listener";
         status = "okay";
@@ -55,7 +70,7 @@
         input-processors =
             <&zip_report_rate_limit 8>,
             <&auto_mouse_layer 4 700>,
-            <&pointer_accel>;
+            <&pointer_accel_slow>;
     };
 };
 
@@ -113,18 +128,20 @@
         reg = <0x75>;
         status = "okay";
         motion-gpios = <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        res-x-cpi = <1200>;
-        res-y-cpi = <1200>;
+        res-x-cpi = <600>;
+        res-y-cpi = <600>;
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 };
 
-/* L側のトラックボール信号を親機でマウスカーソルとして上書き受信する設定 */
+/* L側のトラックボール信号をスクロールとして受信する設定 */
 &trackball_listener_L {
     status = "okay";
     device = <&trackball_split_L>;
-    input-processors = 
+    input-processors =
         <&zip_report_rate_limit 8>,
-        <&pointer_accel>;
+        <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+        <&zip_xy_to_scroll_mapper>,
+        <&zip_scroll_scaler 1 4>;
 };

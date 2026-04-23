@@ -35,7 +35,7 @@
     <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
       <!-- <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="100%" stop-color="#dddddd"/>-->
-      <stop offset="0%" stop-color="#444444"/>
+      <stop offset="0%" stop-color="#A0A0A0"/>
       <stop offset="100%" stop-color="#222222"/>
     </radialGradient>
   </defs>
@@ -50,8 +50,8 @@
     <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
       <!-- <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="100%" stop-color="#dddddd"/> -->
-      <stop offset="0%" stop-color="#444444"/>
-      <stop offset="100%" stop-color="#222222"/>
+      <stop offset="0%" stop-color="#A0A0A0"/>
+      <stop offset="100%" stop-color="#222222 "/>
     </radialGradient>
   </defs>
   <rect x="2" y="2" fill="#ffffff" stroke="#000000"/>
@@ -198,7 +198,7 @@ path.combo { stroke: #7f7f7f; }
 }
 svg.keymap {
   # background-color: #434343 !important;
-  background-color: #333333 !important;
+  background-color: #D0D0D0 !important;
   font-family: Ubuntu Mono, Inconsolata, Consolas, Liberation Mono, Menlo, monospace;
   font-size: 14px;
   font-weight: bold;

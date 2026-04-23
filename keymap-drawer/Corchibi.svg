@@ -1,36 +1,15 @@
 <svg width="956" height="2154" viewBox="0 0 956 2154" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>/* start glyphs */
 <svg id="rotaryencoder">
-<svg xmlns="http://www.w3.org/2000/svg"
- 
-  viewBox="-0.5 -0.5 60 60">
-  <defs>
-    <radialGradient id="wheelgrad" cx="50%" cy="50%" r="60%">
-      <stop offset="0%" stop-color="#FAFAFA"/>
-      <stop offset="70%" stop-color="#F0F0F0"/>
-      <stop offset="100%" stop-color="#E8E8E8"/>
-    </radialGradient>
-  </defs>
-
-  <circle cx="30" cy="30" r="29.5"
-    fill="url(#wheelgrad)"
-    stroke="#D8D8D8"
-    stroke-width="0.5"/>
-
-  <g stroke="#C8C8C8" stroke-width="1.3" stroke-linecap="round">
-    <line transform="rotate(0 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(30 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(60 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(90 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(120 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(150 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(180 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(210 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(240 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(270 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(300 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-    <line transform="rotate(330 30 30)" x1="30" y1="0" x2="32.12" y2="2.12"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="39 0 102 101">
+  <path 
+    class="glyph"
+    style="fill: white !important; fill-opacity: 1 !important;"
+    fill="#FFFFFF" 
+    stroke="#555555" 
+    stroke-width="1.5" 
+    stroke-linejoin="round"
+    d="M 83.31 100 C 79.56 99.35 75.85 98.52 72.35 97.1 L 72.56 88.87 C 69.96 87.87 67.37 86.41 64.78 84.3 L 57.49 88.6 C 54.91 85.98 52.35 83.41 49.78 80.2 L 54.52 73.16 C 53 71.2 51.28 68.21 50.32 64.98 L 42.05 64.92 C 41.18 61.6 40.44 57.96 40 53.54 L 47.68 50.53 C 47.52 47.76 47.94 43.87 48.48 41.09 L 41.83 36.52 C 42.95 32.98 44.26 29.48 46.14 26.11 L 54.26 27.65 C 55.63 25.03 57.68 22.59 60.07 20.24 L 56.81 12.84 C 59.49 10.3 62.69 8.11 66.13 6.08 L 72.2 11.7 C 75.13 10.26 78.51 9.3 80.99 9.01 L 82.33 0.71 C 86.2 0.05 90.28 0 93.77 0.37 L 95.67 8.15 C 98.67 8.63 101.69 9.31 104.78 10.47 L 110.3 4.51 C 113.73 6.03 117.06 8.07 119.99 10.26 L 117.56 17.89 C 120 20.29 122.39 22.63 123.72 24.88 L 131.77 22.84 C 133.9 26.1 135.55 29.45 136.83 32.88 L 130.54 37.98 C 131.43 41.1 131.95 44.6 132.12 47.33 L 140 49.78 C 139.84 53.58 139.53 58.28 138.77 61.02 L 130.52 62.02 C 129.72 65.21 128.52 68.02 127.12 70.61 L 132.29 77.06 C 130.69 79.64 128.05 83.07 125.22 85.83 L 117.84 82.11 C 115.98 83.93 113.32 85.89 110.29 87.25 L 111.07 95.64 C 107.89 97.18 104.33 98.39 100.47 99.34 L 96.28 92.1 C 93.74 92.59 89.75 92.88 86.94 92.45 Z" />
 </svg>
 
 </svg>
@@ -196,23 +175,23 @@ text { fill: #000000; }
   width: 100% !important;
   height: 100% !important;
 }
-.key:has(use[href="#trackball_14mm"]) text.hold {
+.key:has(use[href^="#trackball_"]) text.hold {
   fill: #000000 !important;
   font-size: 12px !important;
   font-weight: bold !important;
   display: block !important;
   transform: translate(0px, -10px) !important;
 }
-.key use[href="#trackball_19mm"] {
+.key use[href^="#trackball_"] {
   width: 100% !important;
   height: 100% !important;
 }
-.key:has(use[href="#trackball_19mm"]) text.hold {
+.key:has(use[href="#rotaryencoder"]) text.hold {
   fill: #000000 !important;
   font-size: 12px !important;
   font-weight: bold !important;
   display: block !important;
-  transform: translate(0px, -10px) !important;
+  transform: translate(0px, -20px) !important;
 }
 </style>
 <g transform="translate(30, 0)" class="layer-default">
@@ -221,22 +200,22 @@ text { fill: #000000; }
 <g transform="translate(28, 56)" class="key keypos-0">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">ESC</text>
+<text x="0" y="0" class="key tap">⎋</text>
 </g>
 <g transform="translate(28, 112)" class="key keypos-1">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">TAB</text>
+<text x="0" y="0" class="key tap">↹</text>
 </g>
 <g transform="translate(28, 168)" class="key keypos-2">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">LSHFT</text>
+<text x="0" y="0" class="key tap">⇧</text>
 </g>
 <g transform="translate(28, 224)" class="key keypos-3">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">LCTRL</text>
+<text x="0" y="0" class="key tap">^</text>
 </g>
 <g transform="translate(84, 112)" class="key keypos-4">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
@@ -251,7 +230,7 @@ text { fill: #000000; }
 <g transform="translate(84, 224)" class="key keypos-6">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">LGUI</text>
+<text x="0" y="0" class="key tap">⌘</text>
 </g>
 <g transform="translate(140, 42)" class="key keypos-7">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
@@ -266,7 +245,7 @@ text { fill: #000000; }
 <g transform="translate(140, 210)" class="key keypos-9">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">LALT</text>
+<text x="0" y="0" class="key tap">⌥</text>
 </g>
 <g transform="translate(196, 28)" class="key keypos-10">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
@@ -318,7 +297,7 @@ text { fill: #000000; }
 <g transform="translate(364, 154)" class="key keypos-19">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<use href="#rotaryencoder" xlink:href="#rotaryencoder" x="-29" y="-29" height="58" width="58.0" class="key tap glyph rotaryencoder"/>
+<use href="#rotaryencoder" xlink:href="#rotaryencoder" x="-29" y="-29" height="58" width="58.57425742574257" class="key tap glyph rotaryencoder"/>
 <text x="0" y="25" class="key hold">↑↓</text>
 </g>
 <g transform="translate(84, 56)" class="key keypos-20">
@@ -349,12 +328,12 @@ text { fill: #000000; }
 <g transform="translate(868, 56)" class="key keypos-25">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">BSPC</text>
+<text x="0" y="0" class="key tap">⌫</text>
 </g>
 <g transform="translate(868, 112)" class="key keypos-26">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">RET</text>
+<text x="0" y="0" class="key tap">↵</text>
 </g>
 <g transform="translate(868, 168)" class="key keypos-27">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
@@ -364,7 +343,7 @@ text { fill: #000000; }
 <g transform="translate(868, 224)" class="key keypos-28">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">RIGHT</text>
+<text x="0" y="0" class="key tap">▶</text>
 </g>
 <g transform="translate(812, 112)" class="key keypos-29">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
@@ -374,12 +353,12 @@ text { fill: #000000; }
 <g transform="translate(812, 168)" class="key keypos-30">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">UP</text>
+<text x="0" y="0" class="key tap">▲</text>
 </g>
 <g transform="translate(812, 224)" class="key keypos-31">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">DOWN</text>
+<text x="0" y="0" class="key tap">▼</text>
 </g>
 <g transform="translate(756, 42)" class="key keypos-32">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
@@ -394,7 +373,7 @@ text { fill: #000000; }
 <g transform="translate(756, 210)" class="key keypos-34">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
 <rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
-<text x="0" y="0" class="key tap">RIGHT</text>
+<text x="0" y="0" class="key tap">▶</text>
 </g>
 <g transform="translate(700, 28)" class="key keypos-35">
 <rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>

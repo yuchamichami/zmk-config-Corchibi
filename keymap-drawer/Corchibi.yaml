@@ -1,16 +1,16 @@
 layout: {zmk_keyboard: Corchibi}
 layers:
   default:
-  - ESC
-  - TAB
-  - LSHFT
-  - LCTRL
+  - ⎋
+  - ↹
+  - ⇧
+  - ^
   - A
   - Z
-  - LGUI
+  - ⌘
   - W
   - X
-  - LALT
+  - ⌥
   - E
   - D
   - R
@@ -26,16 +26,16 @@ layers:
   - C
   - T
   - SPACE
-  - BSPC
-  - RET
+  - ⌫
+  - ↵
   - '?'
-  - RIGHT
+  - ▶
   - ':'
-  - UP
-  - DOWN
+  - ▲
+  - ▼
   - O
   - .
-  - RIGHT
+  - ▶
   - {t: I, h: '5'}
   - K
   - U

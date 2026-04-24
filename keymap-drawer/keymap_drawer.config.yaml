@@ -34,15 +34,15 @@ draw_config:
     ry: 8
   svg_extra_style: |
     svg.keymap {
-      background-color: #D0D0D0 !important; /* 全体の背景色 */
+      background-color: #434343 !important; /* 全体の背景色 */
       font-family: Ubuntu Mono, Inconsolata, Consolas, Liberation Mono, Menlo, monospace;
       font-size: 14px;
       font-weight: bold;
       text-rendering: optimizeLegibility;
     }
     rect.key {
-      fill: #333333 !important;      /* キーの色 */
-      stroke: #000000 !important;    /* 枠線の色 */
+      fill: #FFFFFF !important;      /* キーの色 */
+      stroke: #C0C0C0 !important;    /* 枠線の色 */
       stroke-width: 2px;
     }
     /* 押下とコンボ */
@@ -53,7 +53,7 @@ draw_config:
     }
     /* トラボ */
     .key:has(use[href^="#trackball_"]) text.hold {
-      fill: #FFFFFF !important;
+      fill: #000000 !important;
       font-size: 12px !important;
       font-weight: bold !important;
       display: block !important;
@@ -61,7 +61,7 @@ draw_config:
     }
     /* エンコーダ */
     .key:has(use[href="#rotaryencoder"]) text.hold {
-      fill: #FFFFFF !important;
+      fill: #000000 !important;
       font-size: 12px !important;
       font-weight: bold !important;
       display: block !important;
@@ -79,30 +79,30 @@ draw_config:
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <defs>
           <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#A0A0A0"/>
-            <stop offset="100%" stop-color="#222222"/>
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#bbbbbb"/>
           </radialGradient>
         </defs>
         <rect x="2" y="2" width="92" height="92" fill="#ffffff" stroke="#000000"/>
-        <ellipse cx="48" cy="48" rx="36" ry="36" fill="url(#trackball-gradient)" stroke="#000000"/>
+        <ellipse cx="48" cy="48" rx="36" ry="36" fill="url(#trackball-gradient)" stroke="#888888"/>
       </svg>
     trackball_19mm: |
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
         <defs>
           <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#A0A0A0"/>
-            <stop offset="100%" stop-color="#222222"/>
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#bbbbbb"/>
           </radialGradient>
         </defs>
         <rect x="2" y="2" width="92" height="92" fill="#ffffff" stroke="#000000"/>
-        <ellipse cx="48" cy="48" rx="46" ry="46" fill="url(#trackball-gradient)" stroke="#000000" stroke-width="3.5" />
+        <ellipse cx="48" cy="48" rx="46" ry="46" fill="url(#trackball-gradient)" stroke="#888888" stroke-width="3.5" />
       </svg>
     rotaryencoder: |
       <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="39 0 102 101">
         <path 
           class="glyph"
           style="fill: #333333 !important; fill-opacity: 1 !important;"
-          fill="#FFFFFF" 
+          fill="#000000" 
           stroke="#000000" 
           stroke-width="3.5" 
           stroke-linejoin="round"
@@ -112,7 +112,7 @@ draw_config:
     lakchibi_cat: |
       <svg id="_レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" width="18.30917mm" height="18.48556mm" viewBox="0 0 51.9 52.4">
         <line y1="52.4" x2="51.9" fill="none" stroke-width="0"/>
-        <g fill="#FFFFFF">
+        <g fill="#000000">
           <path d="m22.5,24.80002c1.2,0,2,.89999,2,2s-.9,2.10001-2.1,2.10001c-1,0-2-.89999-2-2,0-1.20001.99999-2.10001,2.1-2.10001Zm0,3.69998c.5,0,.9-.20001,1.2-.5.1-.10001.1-.39999,0-.60001s-.3-.19998-.5-.19998c-.1,0-.1.10001-.2.10001-.3.29999-.6.29999-1,.20001-.2-.10001-.4,0-.5.20001s0,.39999.2.5c.3.29996.5.29996.8.29996Zm-.2-3.19998c-.4,0-.7.29999-.7.70001,0,.39999.3.70001.7.70001s.7-.29999.7-.70001-.3-.70001-.7-.70001Zm-1,2.10001c.2,0,.3-.10001.3-.29999,0-.20001-.1-.29999-.3-.29999s-.3.10001-.3.29999c0,.09998.10001.29999.3.29999Zm2-1.20001c0,.20001.1.29999.3.29999s.3-.10001.3-.29999c0-.20001-.1-.29999-.3-.29999s-.3.09998-.3.29999Zm.3.70001c0,.10001.1.20001.2.20001s.2-.10001.2-.20001,0-.20001-.2-.20001-.2.10001-.2.20001Z" stroke-width="0"/>
           <path d="m30.1,25c1.1,0,2,.89999,2,2,0,1.20001-.8,2-2,2-1.1,0-2.1-.89999-2-2.10001,0-.99997.9-1.89999,2-1.89999Zm-.1,3.70001c.4,0,.8-.10001,1.1-.39999.2-.20001.2-.60001,0-.70001-.2-.20001-.4-.20001-.7,0-.3.20001-.6.29999-1,.10001-.2-.10001-.4,0-.5.10001-.1.20001-.1.39999.1.5.39999.19998.7.39999,1,.39999Zm.39999-2.60001c0-.29999-.3-.60001-.6-.60001-.4,0-.6.29999-.6.60001,0,.39999.3.60001.6.60001s.6-.20001.6-.60001Zm.60001-.19998c-.2,0-.3.10001-.3.29999,0,.20001.1.29999.3.29999.1,0,.3-.20001.3-.29999,0-.20001-.2-.29999-.3-.29999Zm-2.10001,1.39999c.1,0,.2-.10001.2-.20001s-.1-.20001-.2-.20001-.2.10001-.2.20001.1.20001.2.20001Zm2.60001-.39999c0-.10001-.1-.20001-.2-.20001s-.2.10001-.2.20001.1.20001.2.20001c.09999-.00003.2-.10004.2-.20001Z" stroke-width="0"/>
           <path d="m36,20.5c0,.70001-.1,1.29999-.1,2-.1,1.10001-.4,2.20001-.7,3.20001v.10001c-.1.10001-.1.20001-.3.20001-.1,0-.1-.10001-.1-.29999.2-.5.3-.89999.4-1.39999.2-.70001.3-1.29999.4-2,.1-.79999.1-1.5.1-2.29999,0-.5-.1-1.10001-.2-1.60001h0c-.1-.29999-.3-.39999-.6-.29999-.4.10001-.8.20001-1.2.39999-.9.39999-1.8.89999-2.6,1.5-.4.29999-.7.60001-1.1.89999-.1.10001-.2.10001-.3,0-.1-.10001-.1-.20001,0-.29999.3-.29999.7-.60001,1-.79999.5-.39999,1.1-.70001,1.7-1,.5-.29999,1-.5,1.5-.70001.3-.10001.7-.29999,1-.29999.4,0,.6.10001.8.5.2.39999.2.79999.3,1.29999-.00002.19995-.00002.59995-.00002.89993Z" stroke-width="0"/>

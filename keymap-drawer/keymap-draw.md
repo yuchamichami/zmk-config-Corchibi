@@ -55,7 +55,7 @@ white
 
 ---
 ### (2). オリジナルカラーのテーマを作って描画する場合
-[オリジナルテーマを作る方はこちら](./theme-builder.html)
+[オリジナルテーマを作る方はこちら](https://hindee.github.io/zmk-config-Corchibi/keymap-drawer/theme-builder.html)
 > [!NOTE]
 > 白または黒テーマを使う方はこのページを使う必要がありません。<br>
 > リポジトリ内の keymap-drawer/theme.txtに`black`または`white`を記載しコミットするだけでOK。

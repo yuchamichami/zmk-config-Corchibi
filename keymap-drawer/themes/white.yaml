@@ -6,6 +6,6 @@ THEME_KEY_STROKE:    "#C0C0C0"   # キーの枠線の色
 THEME_TEXT_ON_KEY:   "#000000"   # トラボ・エンコーダのラベル文字色
 THEME_TB_GRAD_START: "#ffffff"   # トラックボールのグラデーション（内側）
 THEME_TB_GRAD_END:   "#bbbbbb"   # トラックボールのグラデーション（外側）
-THEME_TB_STROKE:     "#888888"   # トラックボールの枠線の色
 THEME_ENCODER_FILL:  "#000000"   # ロータリーエンコーダのアイコン色
-THEME_CAT_FILL:      "#000000"   # スペースキーの猫アイコン色
+THEME_HELD_FILL:         "#EBA205"   # ホールドキーの塗り色
+THEME_HELD_STROKE:       "#E29C03"   # ホールドキーの輪郭線

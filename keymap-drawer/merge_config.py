@@ -47,17 +47,35 @@ def load_theme(theme_path: Path) -> dict[str, str]:
 
 def apply_theme(template: str, theme: dict[str, str]) -> str:
     """
-    テンプレート文字列内の ${KEY} を theme 辞書の値で置換します。
+    テンプレート文字列内のプレースホルダーを theme 辞書の値で置換します。
+    対応する書き方:
+      - ${THEME_FOO}  : svg_extra_style などで使われる形式
+      - THEME_FOO     : glyphs 内 SVG 属性値などで使われる裸の形式
     未定義の変数が残っていた場合はエラーを出して終了します。
     """
     result = template
-    for key, value in theme.items():
-        result = result.replace(f"${{{key}}}", value)
 
-    # 未置換のプレースホルダーを検出
-    remaining = re.findall(r"\$\{[^}]+\}", result)
-    if remaining:
-        print(f"エラー: テーマファイルに未定義の変数があります: {set(remaining)}", file=sys.stderr)
+    # 長いキー名から先に置換して部分一致の誤替えを防ぐ
+    sorted_keys = sorted(theme.keys(), key=len, reverse=True)
+
+    for key in sorted_keys:
+        value = theme[key]
+        # ${THEME_FOO} 形式
+        result = result.replace(f"${{{key}}}", value)
+        # 裸の THEME_FOO 形式（ただし THEME_ で始まるキーのみ対象）
+        if key.startswith("THEME_"):
+            result = result.replace(key, value)
+
+    # 未置換の ${...} プレースホルダーを検出
+    remaining_braced = re.findall(r"\$\{[^}]+\}", result)
+    if remaining_braced:
+        print(f"エラー: テーマファイルに未定義の変数があります: {set(remaining_braced)}", file=sys.stderr)
+        sys.exit(1)
+
+    # 未置換の裸の THEME_* を検出
+    remaining_bare = re.findall(r"\bTHEME_\w+", result)
+    if remaining_bare:
+        print(f"エラー: テーマファイルに未定義の変数があります: {set(remaining_bare)}", file=sys.stderr)
         sys.exit(1)
 
     return result

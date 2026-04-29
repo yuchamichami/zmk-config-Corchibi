@@ -2,23 +2,87 @@ name: "Draw Keymap"
 
 on:
   workflow_dispatch:
-  # push時に自動で実行する場合は、以下のコメントアウトを外す
+    inputs:
+      theme:
+        description: "Color theme (テーマ名。空欄の場合は theme.txt の設定を使用)"
+        required: false
+        default: ""
+        type: choice
+        options:
+          - ""        # theme.txt に従う
+          - black
+          - white
   push:
     paths:
       - "config/Corchibi.keymap"
-      - "keymap-drawer/keymap_drawer.config.yaml"
+      - "keymap-drawer/keymap_drawer.config.template.yaml"
+      - "keymap-drawer/theme.txt"
+      - "keymap-drawer/themes/**"
       - "boards/shields/Corchibi/Corchibi.dtsi"
 
 jobs:
+  # ジョブ1: テーマを適用した config ファイルを生成してコミットする
+  prepare-config:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      theme: ${{ steps.resolve_theme.outputs.theme }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      # テーマ名を決定する
+      # 手動実行でテーマが指定されていればそれを優先、なければ theme.txt を読む
+      - name: Resolve theme
+        id: resolve_theme
+        run: |
+          INPUT_THEME="${{ inputs.theme }}"
+          if [ -n "$INPUT_THEME" ]; then
+            echo "theme=$INPUT_THEME" >> $GITHUB_OUTPUT
+          else
+            FILE_THEME=$(cat keymap-drawer/theme.txt | tr -d '[:space:]')
+            echo "theme=$FILE_THEME" >> $GITHUB_OUTPUT
+          fi
+
+      # テーマを適用した config を生成する
+      - name: Generate config for theme "${{ steps.resolve_theme.outputs.theme }}"
+        run: |
+          python keymap-drawer/merge_config.py \
+            --base   keymap-drawer/keymap_drawer.config.template.yaml \
+            --theme  keymap-drawer/themes/${{ steps.resolve_theme.outputs.theme }}.yaml \
+            --output keymap-drawer/keymap_drawer.config.yaml
+
+      # 生成した config をコミットしてリポジトリに保存する
+      # draw ジョブの config_path はリポジトリ内のパスを参照するため
+      - name: Commit generated config
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f keymap-drawer/keymap_drawer.config.yaml
+          # 差分がない場合はコミットをスキップ
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "[Config] Generate keymap_drawer.config.yaml (theme: ${{ steps.resolve_theme.outputs.theme }})"
+            git pull --rebase origin ${{ github.head_ref || github.ref_name }}
+            git push origin ${{ github.head_ref || github.ref_name }}
+          fi
+
+  # ジョブ2: 生成した config を使って keymap-drawer で SVG を描画する
   draw:
+    needs: prepare-config
     uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@f9cf9d3677368a7fb1dc505c51b8156fafa66fe2
     permissions:
       contents: write
     with:
-      commit_message: "[Draw] ${{ github.event.head_commit.message || 'Update keymap drawing' }}"
+      commit_message: "[Draw] ${{ github.event.head_commit.message || 'Update keymap drawing' }} (theme: ${{ needs.prepare-config.outputs.theme }})"
       amend_commit: false
       keymap_patterns: "config/*.keymap"
       json_path: "config"
-      config_path: "keymap-drawer/keymap_drawer.config.yaml" # config file, ignored if not exists
+      config_path: "keymap-drawer/keymap_drawer.config.yaml"
       output_folder: "keymap-drawer"
       destination: "both"

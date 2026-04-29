@@ -1,5 +1,7 @@
-keymap-drawer/Corchibi.svg
 keymap-drawer/Corchibi.yaml
+
+keymap-drawer/keymap_drawer.config.yaml
+!keymap-drawer/Corchibi.svg
 
 # macOS metadata files
 .DS_Store

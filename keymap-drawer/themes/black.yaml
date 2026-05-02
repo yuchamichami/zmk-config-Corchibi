@@ -1,0 +1,11 @@
+# Corchibi Black テーマ
+# キーボード本体が黒の場合に合わせた配色です
+THEME_BG_COLOR:      "#D0D0D0"   # 全体の背景色
+THEME_KEY_FILL:      "#333333"   # キーの色
+THEME_KEY_STROKE:    "#000000"   # キーの枠線の色
+THEME_TEXT_ON_KEY:   "#FFFFFF"   # トラボ・エンコーダのラベル文字色
+THEME_TB_GRAD_START: "#A0A0A0"   # トラックボールのグラデーション（内側）
+THEME_TB_GRAD_END:   "#222222"   # トラックボールのグラデーション（外側）
+THEME_ENCODER_FILL:  "#FFFFFF"   # ロータリーエンコーダのアイコン色
+THEME_HELD_FILL:         "#EBA205"   # ホールドキーの塗り色
+THEME_HELD_STROKE:       "#E29C03"   # ホールドキーの輪郭線

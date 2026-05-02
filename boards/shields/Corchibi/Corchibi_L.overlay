@@ -43,6 +43,7 @@
 
     #address-cells = <1>;
     #size-cells = <0>;
+
     trackball_L: trackball_L@73 {
         compatible = "pixart,pat9125";
         reg = <0x73>;

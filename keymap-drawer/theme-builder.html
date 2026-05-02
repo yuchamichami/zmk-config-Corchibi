@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corchibi Theme Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0f0f11;
+    --surface:   #18181c;
+    --border:    #2a2a32;
+    --accent:    #D3FF89;
+    --text:      #e8e8ec;
+    --text-muted:#6b6b78;
+    --radius:    8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  header p { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #0f0f11;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+  main {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    overflow: hidden;
+  }
+  .panel {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .preset-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .preset-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 7px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    text-align: left;
+  }
+  .preset-btn:hover, .preset-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(211,255,137,0.05); }
+  .color-grid { display: flex; flex-direction: column; gap: 8px; }
+  .color-row {
+    display: grid;
+    grid-template-columns: 32px 1fr auto auto;
+    align-items: center;
+    gap: 8px;
+  }
+  .color-swatch {
+    width: 32px; height: 32px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform 0.1s;
+  }
+  .color-swatch:hover { transform: scale(1.08); }
+  .color-swatch input[type="color"] {
+    position: absolute; inset: -4px;
+    width: calc(100% + 8px); height: calc(100% + 8px);
+    opacity: 0; cursor: pointer;
+  }
+  .color-info { min-width: 0; }
+  .color-name { font-size: 0.75rem; font-weight: 500; }
+  .color-desc { font-size: 0.65rem; color: var(--text-muted); }
+  .color-hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 5px;
+    width: 72px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .color-hex:hover, .color-hex:focus { outline: none; border-color: var(--accent); color: var(--text); }
+  /* リセットボタン（各行） */
+  .reset-btn {
+    width: 22px; height: 22px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    padding: 0;
+  }
+  .reset-btn:hover { border-color: #ff8080; color: #ff8080; background: rgba(255,128,128,0.08); }
+  .reset-btn:disabled { opacity: 0.25; cursor: default; }
+  .reset-btn:disabled:hover { border-color: var(--border); color: var(--text-muted); background: none; }
+
+  .preview-area { display: flex; flex-direction: column; overflow: hidden; }
+  .preview-toolbar {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+  }
+  .preview-toolbar span { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text-muted); }
+  .preview-canvas {
+    flex: 1; overflow: auto;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 24px;
+    background: repeating-conic-gradient(#1a1a1e 0% 25%, #0f0f11 0% 50%) 0 0 / 20px 20px;
+  }
+  #preview-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 16px 60px rgba(0,0,0,0.7);
+    max-width: 100%;
+  }
+  #preview-container svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  footer {
+    padding: 14px 28px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+  }
+  .theme-name-row { display: flex; align-items: center; gap: 8px; }
+  .theme-name-row label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-muted); }
+  .theme-name-input {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; padding: 5px 9px; border-radius: var(--radius); width: 130px;
+  }
+  .theme-name-input:focus { outline: none; border-color: var(--accent); }
+  .btn-group { display: flex; gap: 8px; margin-left: auto; }
+  .btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600;
+    padding: 7px 16px; border-radius: var(--radius); border: none;
+    cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:hover { opacity: 0.88; } .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--accent); color: #0f0f11; }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .btn-danger { background: var(--surface); color: #ff8080; border: 1px solid #ff4040; }
+  .btn-danger:hover { background: rgba(255,64,64,0.1); opacity: 1; }
+  .toast {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--accent); color: #0f0f11;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
+    padding: 9px 16px; border-radius: var(--radius);
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none; z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.error { background: #ff6060; }
+
+  /* ---- ファイル読み込みエリア ---- */
+  .dropzone {
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .dropzone:hover, .dropzone.drag-over {
+    border-color: var(--accent);
+    background: rgba(211,255,137,0.05);
+  }
+  .dropzone input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .dropzone-icon { font-size: 1.2rem; margin-bottom: 4px; }
+  .dropzone-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .dropzone-label strong { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Corchibi Theme Builder</h1>
+  </div>
+  <span class="badge">BETA</span>
+</header>
+
+<main>
+  <div class="panel">
+    <div>
+      <div class="section-label">プリセット</div>
+      <div class="preset-row">
+        <button class="preset-btn active" onclick="applyPreset('black')">⬛ black</button>
+        <button class="preset-btn" onclick="applyPreset('white')">⬜ white</button>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">テーマファイルを読み込む</div>
+      <div class="dropzone" id="dropzone"
+           ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+        <input type="file" accept=".yaml,.yml,.txt" onchange="handleFileSelect(event)">
+        <div class="dropzone-icon">📂</div>
+        <div class="dropzone-label">
+          <strong>クリック</strong>またはここに<br>.yamlファイルをドロップ
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">カラー設定</div>
+      <div class="color-grid" id="color-controls"></div>
+    </div>
+  </div>
+
+  <div class="preview-area">
+    <div class="preview-toolbar">
+      <span>PREVIEW — キーマップ画像のイメージ</span>
+    </div>
+    <div style="font-size:0.72rem">
+      <p>1. ベースとなるカラーテーマを「プリセット」から選んで、下の「カラー設定」各色をカスタマイズ</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;ベースは作成済みの<code style="color:var(--accent)">***.yaml</code>選択またはドロップしてもOK</p><br>
+      <p>2. 下のDLボタンで<code style="color:var(--accent)">theme.yaml</code> をダウンロード → <code style="color:var(--accent)">keymap-drawer/themes/</code> に配置</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;または「YAMLをコピー」ボタンでコピーした内容を既存の<code style="color:var(--accent)">keymap-drawer/themes/***.yaml</code>に上書きしてもOK</p><br>
+      <p>3. <code style="color:var(--accent)">keymap-drawer/theme.txt/</code>をテーマ名（例:my-theme）で書き換え</p><br>
+      <p>4. コミットすれば完了。GitHubのDrawワークフローの完了後しばらく待つと画像が更新されます。</p><br>
+    </div>
+    <div class="preview-canvas">
+      <div id="preview-container"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="theme-name-row">
+    <label>テーマ名:</label>
+    <input type="text" class="theme-name-input" id="theme-name" value="my-theme" placeholder="my-theme">
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-danger" onclick="resetAll()">↺ 全リセット</button>
+    <button class="btn btn-secondary" onclick="copyYaml()">YAMLをコピー</button>
+    <button class="btn btn-primary" onclick="downloadYaml()">⬇ theme.yaml をDL</button>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---- Embedded SVG ----
+const ORIGINAL_SVG = `<svg width="956" height="360" viewBox="0 0 956 360" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>/* start glyphs */
+<svg id="lakchibi_cat">
+<svg id="_レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.9 52.4">
+  <line y1="52.4" x2="51.9" fill="none" stroke-width="0"/>
+  <g fill="#FFFFFF">
+    <path d="m22.5,24.80002c1.2,0,2,.89999,2,2s-.9,2.10001-2.1,2.10001c-1,0-2-.89999-2-2,0-1.20001.99999-2.10001,2.1-2.10001Zm0,3.69998c.5,0,.9-.20001,1.2-.5.1-.10001.1-.39999,0-.60001s-.3-.19998-.5-.19998c-.1,0-.1.10001-.2.10001-.3.29999-.6.29999-1,.20001-.2-.10001-.4,0-.5.20001s0,.39999.2.5c.3.29996.5.29996.8.29996Zm-.2-3.19998c-.4,0-.7.29999-.7.70001,0,.39999.3.70001.7.70001s.7-.29999.7-.70001-.3-.70001-.7-.70001Zm-1,2.10001c.2,0,.3-.10001.3-.29999,0-.20001-.1-.29999-.3-.29999s-.3.10001-.3.29999c0,.09998.10001.29999.3.29999Zm2-1.20001c0,.20001.1.29999.3.29999s.3-.10001.3-.29999c0-.20001-.1-.29999-.3-.29999s-.3.09998-.3.29999Zm.3.70001c0,.10001.1.20001.2.20001s.2-.10001.2-.20001,0-.20001-.2-.20001-.2.10001-.2.20001Z" stroke-width="0"/>
+    <path d="m30.1,25c1.1,0,2,.89999,2,2,0,1.20001-.8,2-2,2-1.1,0-2.1-.89999-2-2.10001,0-.99997.9-1.89999,2-1.89999Zm-.1,3.70001c.4,0,.8-.10001,1.1-.39999.2-.20001.2-.60001,0-.70001-.2-.20001-.4-.20001-.7,0-.3.20001-.6.29999-1,.10001-.2-.10001-.4,0-.5.10001-.1.20001-.1.39999.1.5.39999.19998.7.39999,1,.39999Zm.39999-2.60001c0-.29999-.3-.60001-.6-.60001-.4,0-.6.29999-.6.60001,0,.39999.3.60001.6.60001s.6-.20001.6-.60001Zm.60001-.19998c-.2,0-.3.10001-.3.29999,0,.20001.1.29999.3.29999.1,0,.3-.20001.3-.29999,0-.20001-.2-.29999-.3-.29999Zm-2.10001,1.39999c.1,0,.2-.10001.2-.20001s-.1-.20001-.2-.20001-.2.10001-.2.20001.1.20001.2.20001Zm2.60001-.39999c0-.10001-.1-.20001-.2-.20001s-.2.10001-.2.20001.1.20001.2.20001c.09999-.00003.2-.10004.2-.20001Z" stroke-width="0"/>
+    <path d="m36,20.5c0,.70001-.1,1.29999-.1,2-.1,1.10001-.4,2.20001-.7,3.20001v.10001c-.1.10001-.1.20001-.3.20001-.1,0-.1-.10001-.1-.29999.2-.5.3-.89999.4-1.39999.2-.70001.3-1.29999.4-2,.1-.79999.1-1.5.1-2.29999,0-.5-.1-1.10001-.2-1.60001h0c-.1-.29999-.3-.39999-.6-.29999-.4.10001-.8.20001-1.2.39999-.9.39999-1.8.89999-2.6,1.5-.4.29999-.7.60001-1.1.89999-.1.10001-.2.10001-.3,0-.1-.10001-.1-.20001,0-.29999.3-.29999.7-.60001,1-.79999.5-.39999,1.1-.70001,1.7-1,.5-.29999,1-.5,1.5-.70001.3-.10001.7-.29999,1-.29999.4,0,.6.10001.8.5.2.39999.2.79999.3,1.29999-.00002.19995-.00002.59995-.00002.89993Z" stroke-width="0"/>
+    <path d="m16.89999,20.90003c0,1,.1,1.89999.3,2.89999l.3,1.20001v.10001c0,.10001,0,.20001-.1.29999-.1,0-.2-.10001-.2-.20001-.1-.29999-.2-.60001-.2-.89999-.1-.60001-.2-1.10001-.3-1.70001-.1-.70001-.1-1.39999-.1-2.10001s.1-1.39999.3-2.10001c.1-.20001.2-.5.3-.70001.1-.10001.3-.20001.4-.20001.4,0,.7.10001,1.1.29999,1.1.5,2.2,1.20001,3.2,1.89999.3.20001.6.5.9.70001l.2.20001c.1.10001.1.20001,0,.29999-.1.10001-.2.10001-.3,0-.1-.10001-.2-.20001-.3-.29999-.7-.60001-1.5-1.20001-2.3-1.70001-.6-.29999-1.1-.60001-1.7-.89999-.2-.10001-.5-.10001-.7-.20001-.1,0-.2,0-.3.10001-.2.29999-.2.60001-.3.89999-.1.39999-.1.79999-.2,1.20001,0,.30005,0,.60004,0,.90005Z" stroke-width="0"/>
+    <path d="m32.1,21.5c.2,0,.3-.10001.5-.10001.3-.10001.5-.10001.8,0,.1,0,.1.10001.2.10001,0,.06668-.03333.13336-.1.20001-.1.10001-.3.20001-.4.29999l-.1.10001c.3,0,.5.10001.7.20001.1,0,.2.10001.2.20001s-.1.10001-.2.20001-.3.10001-.4.20001c0,0-.1,0,0,.10001.4.39999.8.70001,1,1.29999.1-.20001.2-.29999.3-.5.1-.20001.1-.39999.1-.60001,0-.10001.1-.20001.2-.20001s.1.10001.1.20001c-.1.5-.2.89999-.5,1.29999,0,0,0,.10001-.1.10001-.1.20001-.3.10001-.3,0-.1-.20001-.3-.5-.4-.70001-.2-.29999-.5-.5-.8-.70001-.2-.10001-.2-.20001,0-.29999.1-.10001.2-.20001.4-.20001-.2-.10001-.3-.10001-.5-.10001h-.2c-.2,0-.2-.10001-.1-.29999.1-.10001.2-.20001.3-.29999l.1-.10001c-.3,0-.6.10001-.9.20001-.1,0-.2.10001-.3.10001-.1,0-.2.10001-.2,0-.1-.10001,0-.10001,0-.20001.2-.39999.5-.79999.8-1.20001.3-.39999.7-.79999,1-1.10001.3-.29999.6-.5.9-.70001.1-.10001.3-.10001.4-.10001s.2.10001.2.20001c.1.29999.2.60001.1.89999,0,.10001-.1.10001-.2.10001s-.1-.10001-.1-.10001c0-.20001,0-.39999-.1-.70001,0-.20001-.1-.20001-.3-.10001-.3.10001-.5.29999-.8.60001s-.89999,1.00003-1.3,1.70001h0Z" stroke-width="0"/>
+    <path d="m19.7,21.40003c.1.10001.2.20001.4.29999.1.10001.1.20001.1.29999,0,.10001-.1.10001-.2.10001-.2,0-.4,0-.7.10001.1.10001.2.10001.3.20001.2.10001.2.20001,0,.39999-.5.29999-.9.79999-1.2,1.29999-.1.20001-.2.20001-.4,0-.3-.39999-.4-.89999-.5-1.29999,0-.10001,0-.20001.1-.20001h.1c.1,0,.1.10001.1.20001,0,.39999.1.70001.3,1,0,0,0,.10001.1.10001,0,0,.1,0,.1-.10001.3-.39999.6-.79999,1-1.10001.06667-.06665.06667-.10001,0-.10001-.1-.10001-.3-.10001-.4-.20001s-.2-.20001,0-.29999c.2-.10001.5-.20001.7-.20001h.1c-.2-.10001-.3-.20001-.5-.29999-.1,0-.2-.10001-.1-.20001,0-.10001.1-.10001.2-.10001.4,0,.8,0,1.3.20001-.2-.29999-.3-.60001-.5-.79999-.3-.5-.7-.89999-1.2-1.29999-.2-.20001-.4-.39999-.7-.5-.13333-.06668-.23334-.03336-.3.10001-.1.20001-.1.39999-.1.60001,0,.10001,0,.20001-.1.20001s-.2-.10001-.2-.10001c0-.29999,0-.60001.2-.89999.1-.10001.3-.20001.5-.10001.3.10001.5.29999.7.5.7.5,1.2,1.20001,1.6,1.89999.2.20001.3.5.5.79999v.30002h-.2c-.2-.10001-.3-.20001-.5-.29999-.2-.40005-.40001-.50003-.60001-.50003Z" stroke-width="0"/>
+    <path d="m26.1,30.20002c-.1.29999-.3.5-.6.60001-.4.20001-.9.20001-1.2-.10001-.3-.20001-.4-.5-.3-.79999,0-.10001.1-.20001.2-.20001s.2.10001.1.20001c0,.29999.2.60001.6.60001.6.10001,1-.39999,1.1-.89999,0-.10001,0-.20001-.1-.20001s-.1-.10001-.2-.10001c-.2-.20001-.1-.5.3-.60001h.5c.3.10001.3.29999.1.5-.06667.06665-.13333.10001-.2.10001-.1,0-.1.10001-.1.20001.1.29999.2.60001.5.79999.3.20001.8.10001,1-.20001.1-.10001.1-.20001.1-.29999,0-.10001.1-.20001.2-.20001s.2.10001.2.29999c0,.5-.4.89999-.9.89999-.6.20001-1-.09998-1.3-.59998Z" stroke-width="0"/>
+    <path d="m38.7,34.90003c-.06667.00003-.13333-.03336-.2-.10001-.2-.20001-.4-.39999-.6-.60001-.6-.60001-1.2-1.10001-1.9-1.60001-.6-.39999-1.3-.79999-2-1.20001-.2-.10001-.5-.20001-.7-.29999-.1,0-.2-.10001-.1-.20001,0-.10001.1-.10001.2-.10001h0c.8.29999,1.5.70001,2.2,1.10001.6.39999,1.1.79999,1.7,1.20001.5.39999,1,.89999,1.5,1.39999.06667.06668.09999.13336.1.20001-.06667.13333-.13332.20004-.2.20001Z" stroke-width="0"/>
+    <path d="m36.89999,28.60001c1,0,2,.20001,3,.5.1,0,.2.10001.2.20001s-.1.10001-.3.10001c-.5-.20001-.9-.29999-1.4-.39999-.3,0-.6-.10001-.9-.10001h-.9c-.6,0-1.1.10001-1.7.20001-.4.10001-.9.20001-1.3.29999h-.1c-.1,0-.2,0-.2-.10001s0-.20001.1-.20001c.3-.10001.6-.20001.9-.29999.4-.10001.9-.20001,1.3-.20001h1.3Z" stroke-width="0"/>
+    <path d="m13.2,34.20002c0-.10001.1-.10001.1-.20001.2-.29999.5-.5.7-.79999.9-.89999,1.9-1.60001,3-2.29999.3-.20001.6-.39999,1-.5h.1c.1,0,.2,0,.2.10001s0,.20001-.1.20001-.1.10001-.2.10001c-.9.39999-1.8,1-2.6,1.60001-.6.39999-1.1,1-1.6,1.5-.1.10001-.3.29999-.4.5,0,.10001-.1.10001-.2,0v-.20004Z" stroke-width="0"/>
+    <path d="m17.3,29.70002h0c.2,0,.3.10001.3.20001s-.1.10001-.2.10001c-.4,0-.7.10001-1.1.10001-.7.10001-1.4.39999-2,.70001-.6.29999-1.1.60001-1.6.89999-.2.10001-.4.29999-.6.39999,0,0-.1,0-.1.10001h-.2v-.20001c.1-.10001.2-.20001.4-.29999.5-.39999,1.1-.70001,1.7-1,.8-.39999,1.6-.60001,2.4-.79999.29999-.20004.69999-.20004.99998-.20004Z" stroke-width="0"/>
+    <path d="m17.89999,28.90003c0,.10001-.1.20001-.3.20001-.4-.20001-.9-.29999-1.3-.29999h-.3c-.4,0-.7-.10001-1.1,0h-.5c-.6,0-1.1.20001-1.7.29999-.2.10001-.4.10001-.6.20001-.1,0-.2,0-.2-.10001s0-.20001.1-.20001c.5-.20001,1.1-.29999,1.7-.39999s1.3-.20001,1.9-.10001c.7,0,1.5.10001,2.1.39999.10001-.20001.2-.10001.2,0Z" stroke-width="0"/>
+    <path d="m34.3,29.90003c.7,0,1.3.10001,2,.29999,1,.20001,1.9.60001,2.7,1.10001.1.10001.2.10001.1.20001s-.1.10001-.2.10001c-.4-.20001-.8-.39999-1.2-.60001-.8-.29999-1.6-.60001-2.5-.70001-.3,0-.7-.10001-1-.10001h-.2c-.1,0-.1-.10001-.1-.20001s.1-.10001.2-.10001c-.1.00003,0,.00003.2.00003Z" stroke-width="0"/>
+    <path d="m23,23.20002v.20001c-.3.39999-.7.60001-1.1.70001h-.1c-.1,0-.2-.10001-.2-.20001s.1-.20001.2-.20001h.3c.3-.10001.5-.20001.7-.5,0-.10001.1-.10001.2-.10001-.10001,0,0,0,0,.10001Z" stroke-width="0"/>
+    <path d="m30.5,24.20002c-.5,0-.9-.20001-1.2-.5-.1-.10001-.1-.20001,0-.29999.1-.10001.2,0,.3,0,.1.10001.2.20001.4.29999.2.10001.3.10001.5.10001s.3.10001.3.20001c-.00002.19998-.10001.19998-.30001.19998h0Z" stroke-width="0"/>
+    <path d="m19,30.40003c0-.06668.03333-.13336.1-.20001.2-.29999.4-.60001.7-1l.1-.10001c.06667-.06665.13333-.06665.2,0,.1,0,.1.10001,0,.20001s-.2.29999-.3.39999c-.2.20001-.3.5-.5.70001,0,.10001-.1.10001-.2.10001,0,.09998-.09999.09998-.09999-.10001,0,.09998,0,0,0,0Z" stroke-width="0"/>
+    <path d="m30.5,31c-.1,0-.2-.10001-.2-.20001.2-.39999.4-.70001.6-1.10001.06667-.06665.13333-.09998.2-.10001.1.10001.1.20001.1.20001-.2.39999-.4.70001-.6,1.10001,0,.06665-.03333.09998-.1.10001Z" stroke-width="0"/>
+    <path d="m19.89999,30.60001s0-.10001.1-.10001c.2-.29999.4-.60001.6-.89999.1-.10001.1-.20001.3-.10001.1.10001.1.20001,0,.29999-.2.29999-.4.70001-.6,1,0,.10001-.1.10001-.2.10001-.1-.19998-.2-.19998-.2-.29999Z" stroke-width="0"/>
+    <path d="m31.5,30.90003c-.2,0-.2-.10001-.2-.29999.1-.29999.3-.5.4-.70001.1-.10001.1-.20001.2-.29999.06667-.06668.13333-.10001.2-.10001.06667.06668.1.13333.1.20001-.2.29999-.4.70001-.6,1,0,.19998-.1.19998-.1.19998Z" stroke-width="0"/>
+    <path d="m32.2,30.80002v-.10001c.1-.29999.2-.5.4-.70001.1-.10001.1-.20001.3-.10001.1.10001.1.20001.1.29999-.1.29999-.3.5-.4.79999,0,.10001-.1.10001-.2.10001-.13333-.13327-.2-.23331-.2-.29996Z" stroke-width="0"/>
+    <path d="m21.6,29.80002c0,.10001-.1.29999-.2.39999s-.1.20001-.2.39999c0,.10001-.1.20001-.2.10001-.1,0-.1-.10001-.1-.20001.1-.29999.2-.5.4-.70001,0-.10001.1-.10001.2-.10001,0,.00003.09999.10004.09999.10004Z" stroke-width="0"/>
+  </g>
+</svg>
+
+</svg>
+<svg id="trackball_14mm">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+    <defs>
+      <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="THEME_TB_GRAD_START"/>
+        <stop offset="100%" stop-color="THEME_TB_GRAD_END"/>
+      </radialGradient>
+    </defs>
+    <rect x="2" y="2" width="92" height="92" fill="THEME_KEY_FILL" stroke="THEME_KEY_STROKE"/>
+    <ellipse cx="48" cy="48" rx="36" ry="36" fill="url(#trackball-gradient)" stroke="#000000"/>
+  </svg>
+
+</svg>
+<svg id="trackball_19mm">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+    <defs>
+      <radialGradient id="trackball-gradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="THEME_TB_GRAD_START"/>
+        <stop offset="100%" stop-color="THEME_TB_GRAD_END"/>
+      </radialGradient>
+    </defs>
+    <rect x="2" y="2" width="92" height="92" fill="THEME_KEY_FILL" stroke="THEME_KEY_STROKE"/>
+    <ellipse cx="48" cy="48" rx="46" ry="46" fill="url(#trackball-gradient)" stroke="#000000" stroke-width="1" />
+  </svg>
+
+</svg>
+</defs>/* end glyphs */
+<style>/* inherit to force styles through use tags */
+svg path {
+    fill: inherit;
+}
+
+/* font and background color specifications */
+svg.keymap {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 14px;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    fill: #24292e;
+}
+
+/* default key styling */
+rect.key {
+    fill: #f6f8fa;
+}
+
+rect.key, rect.combo {
+    stroke: #c9cccf;
+    stroke-width: 1;
+}
+
+/* default key side styling, only used is draw_key_sides is set */
+rect.side {
+    filter: brightness(90%);
+}
+
+/* color accent for combo boxes */
+rect.combo, rect.combo-separate {
+    fill: #cdf;
+}
+
+/* color accent for held keys */
+rect.held, rect.combo.held {
+    fill: #fdd;
+}
+
+/* color accent for ghost (optional) keys */
+rect.ghost, rect.combo.ghost {
+    stroke-dasharray: 4, 4;
+    stroke-width: 2;
+}
+
+text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+/* styling for layer labels */
+text.label {
+    font-weight: bold;
+    text-anchor: start;
+    stroke: white;
+    stroke-width: 4;
+    paint-order: stroke;
+}
+
+/* styling for optional footer */
+text.footer {
+    text-anchor: end;
+    dominant-baseline: auto;
+    stroke: white;
+    stroke-width: 4;
+    paint-order: stroke;
+}
+
+/* styling for combo tap, and key non-tap label text */
+text.combo, text.hold, text.shifted, text.left, text.right {
+    font-size: 11px;
+}
+
+text.hold {
+    text-anchor: middle;
+    dominant-baseline: auto;
+}
+
+text.shifted {
+    text-anchor: middle;
+    dominant-baseline: hanging;
+}
+
+text.left {
+    text-anchor: start;
+}
+
+text.right {
+    text-anchor: end;
+}
+
+text.layer-activator {
+    text-decoration: underline;
+}
+
+/* styling for hold/shifted label text in combo box */
+text.combo.hold, text.combo.shifted, text.combo.left, text.combo.right {
+    font-size: 8px;
+}
+
+/* lighter symbol for transparent keys */
+text.trans {
+    fill: #7b7e81;
+}
+
+/* styling for combo dendrons */
+path.combo {
+    stroke-width: 1;
+    stroke: gray;
+    fill: none;
+}
+
+/* Start Tabler Icons Cleanup */
+/* cannot use height/width with glyphs */
+.icon-tabler > path {
+    fill: inherit;
+    stroke: inherit;
+    stroke-width: 2;
+}
+/* hide tabler's default box */
+.icon-tabler > path[stroke="none"][fill="none"] {
+    visibility: hidden;
+}
+/* End Tabler Icons Cleanup */
+
+@media (prefers-color-scheme: dark) {
+svg.keymap { fill: #d1d6db; }
+rect.key { fill: #3f4750; }
+rect.key, rect.combo { stroke: #60666c; }
+rect.combo, rect.combo-separate { fill: #1f3d7a; }
+rect.held, rect.combo.held { fill: #854747; }
+text.label, text.footer { stroke: black; }
+text.trans { fill: #7e8184; }
+path.combo { stroke: #7f7f7f; }
+
+}
+/* __THEME_BLOCK_START__ */
+svg.keymap {
+  background-color: #D0D0D0 !important; /* 全体の背景色 */
+  font-family: Ubuntu Mono, Inconsolata, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-rendering: optimizeLegibility;
+}
+rect.key {
+  fill: #333333 !important;      /* キーの色 */
+  stroke: #000000 !important;  /* 枠線の色 */
+  stroke-width: 2px;
+}
+.key text {
+  fill: #FFFFFF !important;   /* キーレジェンドの色 */
+}
+/* 押下とコンボ */
+rect.held, rect.combo.held {
+  fill: #D3FF89 !important;      /* キーの色 */
+  stroke: #B3DF69 !important;    /* 枠線の色 */
+  stroke-width: 2.0;
+}
+/* トラボ */
+.key:has(use[href^="#trackball_"]) text.hold {
+  fill: #FFFFFF !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  display: block !important;
+  transform: translate(0px, -10px) !important;
+}
+/* エンコーダ */
+.key:has(use[href="#rotaryencoder"]) text.hold {
+  fill: #FFFFFF !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  display: block !important;
+  transform: translate(0px, -20px) !important;
+}
+/* __THEME_BLOCK_END__ */
+</style>
+<g transform="translate(30, 0)" class="layer-default">
+<text x="0" y="28" class="label" id="default">サンプル（レジェンドはサンプルのものです）:</text>
+<g transform="translate(0, 56)">
+<g transform="translate(28, 56)" class="key keypos-0">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">⎋</text>
+</g>
+<g transform="translate(28, 112)" class="key keypos-1">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">↹</text>
+</g>
+<g transform="translate(28, 168)" class="key keypos-2">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">⇧</text>
+</g>
+<g transform="translate(28, 224)" class="key keypos-3">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">^</text>
+</g>
+<g transform="translate(84, 112)" class="key keypos-4">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">A</text>
+</g>
+<g transform="translate(84, 168)" class="key keypos-5">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">Z</text>
+</g>
+<g transform="translate(84, 224)" class="key keypos-6">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">⌘</text>
+</g>
+<g transform="translate(140, 42)" class="key keypos-7">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">W</text>
+</g>
+<g transform="translate(140, 154)" class="key keypos-8">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">X</text>
+</g>
+<g transform="translate(140, 210)" class="key keypos-9">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">⌥</text>
+</g>
+<g transform="translate(196, 28)" class="key keypos-10">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">E</text>
+</g>
+<g transform="translate(196, 84)" class="key keypos-11">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">D</text>
+</g>
+<g transform="translate(252, 42)" class="key keypos-12">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">R</text>
+</g>
+<g transform="translate(252, 98)" class="key keypos-13">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">F</text>
+</g>
+<g transform="translate(252, 154)" class="key keypos-14">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">V</text>
+</g>
+<g transform="translate(224, 231)" class="key held keypos-15">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key held side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key held"/>
+</g>
+<g transform="translate(308, 112)" class="key keypos-16">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">G</text>
+</g>
+<g transform="translate(308, 168)" class="key keypos-17">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">B</text>
+</g>
+<g transform="translate(286, 236) rotate(11.93)" class="key keypos-18">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<a href="#x_x">
+<text x="0" y="0" class="key tap layer-activator">2</text>
+</a></g>
+<g transform="translate(364, 154)" class="key keypos-19">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<use href="#trackball_14mm" xlink:href="#trackball_14mm" x="-29" y="-29" height="58" width="58.0" class="key tap glyph trackball_14mm"/>
+<text x="0" y="25" class="key hold">Scroll</text>
+</g>
+<g transform="translate(84, 56)" class="key keypos-20">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">Q</text>
+</g>
+<g transform="translate(140, 98)" class="key keypos-21">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">S</text>
+</g>
+<g transform="translate(196, 140)" class="key keypos-22">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">C</text>
+</g>
+<g transform="translate(308, 56)" class="key keypos-23">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">T</text>
+</g>
+<g transform="translate(345, 257) rotate(23.0)" class="key keypos-24">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<use href="#lakchibi_cat" xlink:href="#lakchibi_cat" x="-29" y="-29" height="58" width="57.44656488549618" class="key tap glyph lakchibi_cat"/>
+</g>
+<g transform="translate(868, 56)" class="key keypos-25">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">⌫</text>
+</g>
+<g transform="translate(868, 112)" class="key keypos-26">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">↵</text>
+</g>
+<g transform="translate(868, 168)" class="key keypos-27">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">?</text>
+</g>
+<g transform="translate(868, 224)" class="key keypos-28">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">▶</text>
+</g>
+<g transform="translate(812, 112)" class="key keypos-29">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">:</text>
+</g>
+<g transform="translate(812, 168)" class="key keypos-30">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">▲</text>
+</g>
+<g transform="translate(812, 224)" class="key keypos-31">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">▼</text>
+</g>
+<g transform="translate(756, 42)" class="key keypos-32">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">O</text>
+</g>
+<g transform="translate(756, 154)" class="key keypos-33">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">.</text>
+</g>
+<g transform="translate(756, 210)" class="key keypos-34">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">▶</text>
+</g>
+<g transform="translate(700, 28)" class="key keypos-35">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">I</text>
+<a href="#x_x">
+<text x="0" y="25" class="key hold layer-activator">5</text>
+</a></g>
+<g transform="translate(700, 84)" class="key keypos-36">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">K</text>
+</g>
+<g transform="translate(644, 42)" class="key keypos-37">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">U</text>
+</g>
+<g transform="translate(644, 98)" class="key keypos-38">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">J</text>
+</g>
+<g transform="translate(644, 154)" class="key keypos-39">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">M</text>
+</g>
+<g transform="translate(672, 231)" class="key keypos-40">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<use href="#trackball_19mm" xlink:href="#trackball_19mm" x="-29" y="-29" height="58" width="58.0" class="key tap glyph trackball_19mm"/>
+<text x="0" y="25" class="key hold">Mouse</text>
+</g>
+<g transform="translate(588, 112)" class="key keypos-41">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">H</text>
+</g>
+<g transform="translate(588, 168)" class="key keypos-42">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">N</text>
+</g>
+<g transform="translate(610, 236) rotate(-11.93)" class="key keypos-43">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<a href="#x_x">
+<text x="0" y="0" class="key tap layer-activator">3</text>
+</a></g>
+<g transform="translate(532, 154)" class="key keypos-44">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">8</text>
+</g>
+<g transform="translate(812, 56)" class="key keypos-45">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">P</text>
+</g>
+<g transform="translate(756, 98)" class="key keypos-46">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">L</text>
+</g>
+<g transform="translate(700, 140)" class="key keypos-47">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">,</text>
+</g>
+<g transform="translate(588, 56)" class="key keypos-48">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<text x="0" y="0" class="key tap">Y</text>
+</g>
+<g transform="translate(551, 257) rotate(-23.0)" class="key keypos-49">
+<rect rx="6" ry="6" x="-27" y="-27" width="54" height="54" class="key side"/>
+<rect rx="8" ry="8" x="-21" y="-21" width="42" height="42" class="key"/>
+<use href="#lakchibi_cat" xlink:href="#lakchibi_cat" x="-29" y="-29" height="58" width="57.44656488549618" class="key tap glyph lakchibi_cat"/>
+</g>
+</g>
+</g>
+</svg>`;
+
+// ---- Theme variables ----
+const VARS = [
+  { key: 'THEME_BG_COLOR',      name: '背景色',           desc: 'キーマップ全体の背景' },
+  { key: 'THEME_KEY_FILL',      name: 'キーキャップ色',   desc: '通常キーの塗り色' },
+  { key: 'THEME_KEY_STROKE',    name: 'キー枠線色',       desc: 'キーの輪郭線' },
+  { key: 'THEME_TEXT_ON_KEY',   name: 'レジェンド色',     desc: 'キー上の文字・アイコン' },
+  { key: 'THEME_TB_GRAD_START', name: 'トラボ中心色',     desc: 'トラックボール グラデーション内側' },
+  { key: 'THEME_TB_GRAD_END',   name: 'トラボ外周色',     desc: 'トラックボール グラデーション外側' },
+  { key: 'THEME_ENCODER_FILL',  name: 'エンコーダ色',     desc: 'ロータリーエンコーダのアイコン' },
+  { key: 'THEME_HELD_FILL',     name: '押キーキャップ色', desc: 'ホールドキーの塗り色' },
+  { key: 'THEME_HELD_STROKE',   name: '押キー枠線色',     desc: 'ホールドキーの輪郭線' },
+];
+
+const PRESETS = {
+  black: {
+    THEME_BG_COLOR:      '#D0D0D0',
+    THEME_KEY_FILL:      '#333333',
+    THEME_KEY_STROKE:    '#000000',
+    THEME_TEXT_ON_KEY:   '#FFFFFF',
+    THEME_TB_GRAD_START: '#A0A0A0',
+    THEME_TB_GRAD_END:   '#222222',
+    THEME_ENCODER_FILL:  '#FFFFFF',
+    THEME_HELD_FILL:     '#D3FF89',
+    THEME_HELD_STROKE:   '#B3DF69',
+  },
+  white: {
+    THEME_BG_COLOR:      '#434343',
+    THEME_KEY_FILL:      '#FFFFFF',
+    THEME_KEY_STROKE:    '#C0C0C0',
+    THEME_TEXT_ON_KEY:   '#000000',
+    THEME_TB_GRAD_START: '#FFFFFF',
+    THEME_TB_GRAD_END:   '#BBBBBB',
+    THEME_ENCODER_FILL:  '#000000',
+    THEME_HELD_FILL:     '#D3FF89',
+    THEME_HELD_STROKE:   '#B3DF69',
+  },
+};
+
+// 現在の値と「リセット基準値」（最後に適用したプリセットorユーザー保存値）
+let current = { ...PRESETS.black };
+let baseline = { ...PRESETS.black };  // リセットボタンが戻る先
+
+// ---- SVG更新 ----
+function buildThemeCSS(c) {
+  return `svg.keymap {
+  background-color: ${c.THEME_BG_COLOR} !important;
+  font-family: Ubuntu Mono, Inconsolata, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-rendering: optimizeLegibility;
+}
+rect.key {
+  fill: ${c.THEME_KEY_FILL} !important;
+  stroke: ${c.THEME_KEY_STROKE} !important;
+  stroke-width: 2px;
+}
+.key text {
+  fill: ${c.THEME_TEXT_ON_KEY} !important;
+}
+rect.held, rect.combo.held {
+  fill: ${c.THEME_HELD_FILL} !important;
+  stroke: ${c.THEME_HELD_STROKE} !important;
+  stroke-width: 2.0;
+}
+.key:has(use[href^="#trackball_"]) text.hold {
+  fill: ${c.THEME_TEXT_ON_KEY} !important;
+  font-size: 12px !important; font-weight: bold !important;
+  display: block !important; transform: translate(0px, -10px) !important;
+}
+.key:has(use[href="#rotaryencoder"]) text.hold {
+  fill: ${c.THEME_TEXT_ON_KEY} !important;
+  font-size: 12px !important; font-weight: bold !important;
+  display: block !important; transform: translate(0px, -20px) !important;
+}`;
+}
+
+function renderPreview() {
+  const c = current;
+  // SVGのテーマブロックを置換
+  let svg = ORIGINAL_SVG.replace(
+    /\/\* __THEME_BLOCK_START__ \*\/[\s\S]*?\/\* __THEME_BLOCK_END__ \*\//,
+    '/* __THEME_BLOCK_START__ */\n' + buildThemeCSS(c) + '\n/* __THEME_BLOCK_END__ */'
+  );
+  // 猫アイコンのfill属性を置換
+  svg = svg.replace('<g fill="#FFFFFF">', `<g fill="${c.THEME_TEXT_ON_KEY}">`);
+  svg = svg.replace('<g fill="#000000">', `<g fill="${c.THEME_TEXT_ON_KEY}">`);
+  // トラックボール: replaceAll で14mm/19mm両方を置換
+  // ※ THEME_KEY_FILL/STROKE は rect（外枠）の fill/stroke にも使用
+  svg = svg.replaceAll('THEME_KEY_FILL',      c.THEME_KEY_FILL);
+  svg = svg.replaceAll('THEME_KEY_STROKE',    c.THEME_KEY_STROKE);
+  svg = svg.replaceAll('THEME_TB_GRAD_START', c.THEME_TB_GRAD_START);
+  svg = svg.replaceAll('THEME_TB_GRAD_END',   c.THEME_TB_GRAD_END);
+
+  document.getElementById('preview-container').innerHTML = svg;
+  updateResetButtons();
+}
+
+// ---- Controls ----
+function buildControls() {
+  const container = document.getElementById('color-controls');
+  container.innerHTML = '';
+  VARS.forEach(v => {
+    const row = document.createElement('div');
+    row.className = 'color-row';
+
+    // Swatch + color picker
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch';
+    swatch.id = `swatch-${v.key}`;
+    swatch.style.background = current[v.key];
+    const picker = document.createElement('input');
+    picker.type = 'color';
+    picker.value = current[v.key];
+    picker.addEventListener('input', e => updateColor(v.key, e.target.value));
+    swatch.appendChild(picker);
+
+    // Info
+    const info = document.createElement('div');
+    info.className = 'color-info';
+    info.innerHTML = `<div class="color-name">${v.name}</div><div class="color-desc">${v.desc}</div>`;
+
+    // Hex input
+    const hex = document.createElement('input');
+    hex.type = 'text'; hex.className = 'color-hex';
+    hex.id = `hex-${v.key}`; hex.value = current[v.key].toUpperCase();
+    hex.maxLength = 7;
+    hex.addEventListener('change', e => {
+      let val = e.target.value.trim();
+      if (!val.startsWith('#')) val = '#' + val;
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) updateColor(v.key, val);
+      else { hex.value = current[v.key].toUpperCase(); }
+    });
+
+    // Reset button (個別)
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'reset-btn';
+    resetBtn.id = `reset-${v.key}`;
+    resetBtn.title = `${v.name}をリセット`;
+    resetBtn.innerHTML = '↺';
+    resetBtn.addEventListener('click', () => resetColor(v.key));
+
+    row.appendChild(swatch); row.appendChild(info);
+    row.appendChild(hex); row.appendChild(resetBtn);
+    container.appendChild(row);
+  });
+  updateResetButtons();
+}
+
+function updateColor(key, value, skipRender = false) {
+  current[key] = value.toUpperCase();
+  const swatch = document.getElementById(`swatch-${key}`);
+  if (swatch) { swatch.style.background = value; swatch.querySelector('input').value = value; }
+  const hex = document.getElementById(`hex-${key}`);
+  if (hex) hex.value = value.toUpperCase();
+  // プリセットボタンの active を外す
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  if (!skipRender) renderPreview();
+}
+
+function resetColor(key) {
+  updateColor(key, baseline[key]);
+}
+
+function resetAll() {
+  VARS.forEach(v => updateColor(v.key, baseline[v.key], true));
+  buildControls();
+  renderPreview();
+  showToast('すべての色をリセットしました');
+}
+
+function updateResetButtons() {
+  VARS.forEach(v => {
+    const btn = document.getElementById(`reset-${v.key}`);
+    if (btn) btn.disabled = (current[v.key].toUpperCase() === baseline[v.key].toUpperCase());
+  });
+}
+
+function applyPreset(name) {
+  current = { ...PRESETS[name] };
+  baseline = { ...PRESETS[name] };  // プリセット適用でリセット基準も更新
+  buildControls();
+  document.querySelectorAll('.preset-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.includes(name));
+  });
+  renderPreview();
+}
+
+// ---- YAML ----
+function generateYaml() {
+  const name = document.getElementById('theme-name').value || 'my-theme';
+  const lines = [`# Corchibi テーマ: ${name}`, `# Corchibi Theme Builder で生成`, ``];
+  VARS.forEach(v => {
+    const pad = ' '.repeat(Math.max(1, 24 - v.key.length));
+    lines.push(`${v.key}:${pad}"${current[v.key]}"   # ${v.desc}`);
+  });
+  return lines.join('\n');
+}
+
+function downloadYaml() {
+  const name = document.getElementById('theme-name').value || 'my-theme';
+  const blob = new Blob([generateYaml()], { type: 'text/yaml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `${name}.yaml`; a.click();
+  URL.revokeObjectURL(url);
+  showToast(`${name}.yaml をダウンロードしました`);
+}
+
+function copyYaml() {
+  navigator.clipboard.writeText(generateYaml()).then(() => showToast('YAMLをコピーしました'));
+}
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ---- YAMLテーマファイル読み込み ----
+function parseThemeYaml(text) {
+  const result = {};
+  const lines = text.split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    // キー: "値"  または  キー: 値
+    const match = trimmed.match(/^(THEME_\w+)\s*:\s*"?(#[0-9A-Fa-f]{6})"?/);
+    if (match) {
+      result[match[1]] = match[2].toUpperCase();
+    }
+  }
+  return result;
+}
+
+function applyLoadedTheme(text, filename) {
+  const parsed = parseThemeYaml(text);
+  const keys = VARS.map(v => v.key);
+  const foundKeys = Object.keys(parsed).filter(k => keys.includes(k));
+
+  if (foundKeys.length === 0) {
+    showToast('有効なテーマキーが見つかりません', true);
+    return;
+  }
+
+  // テーマ名をファイル名から推測してフィールドに入れる
+  const nameGuess = filename.replace(/\.(yaml|yml|txt)$/i, '');
+  const nameInput = document.getElementById('theme-name');
+  if (nameInput && nameGuess) nameInput.value = nameGuess;
+
+  // 不足しているキーは現在値を維持
+  const merged = { ...current };
+  for (const k of foundKeys) merged[k] = parsed[k];
+
+  current = merged;
+  baseline = { ...merged };
+
+  buildControls();
+  // プリセットボタンのactiveを外す
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  renderPreview();
+
+  const missing = keys.filter(k => !foundKeys.includes(k));
+  if (missing.length > 0) {
+    showToast(`読込完了 (${foundKeys.length}/${keys.length}キー) — 不足分は現在値を保持`);
+  } else {
+    showToast(`"${nameGuess}" を読み込みました`);
+  }
+}
+
+function handleFileSelect(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => applyLoadedTheme(e.target.result, file.name);
+  reader.readAsText(file);
+  // 同じファイルを再選択できるようにリセット
+  event.target.value = '';
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+  document.getElementById('dropzone').classList.add('drag-over');
+}
+function handleDragLeave(event) {
+  document.getElementById('dropzone').classList.remove('drag-over');
+}
+function handleDrop(event) {
+  event.preventDefault();
+  document.getElementById('dropzone').classList.remove('drag-over');
+  const file = event.dataTransfer.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => applyLoadedTheme(e.target.result, file.name);
+  reader.readAsText(file);
+}
+
+// ---- Init ----
+buildControls();
+renderPreview();
+</script>
+</body>

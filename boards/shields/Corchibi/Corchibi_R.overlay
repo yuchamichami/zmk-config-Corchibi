@@ -71,6 +71,16 @@
             <&zip_report_rate_limit 8>,
             <&auto_mouse_layer 4 700>,
             <&pointer_accel_slow>;
+
+        scroll_layer {
+            status = "okay";
+            layers = <5>;
+            input-processors =
+                <&zip_report_rate_limit 8>,
+                <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+                <&zip_xy_to_scroll_mapper>,
+                <&zip_scroll_scaler 1 4>;
+        };
     };
 };
 

@@ -80,7 +80,7 @@
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
         require-prior-idle-ms = <200>;
-        excluded-positions = <38 36 46>;  /* J(MB1), K(MB3), L(MB2) */
+        excluded-positions = <35 38 36 46>;  /* I(scroll layer), J(MB1), K(MB3), L(MB2) */
     };
 };
 
@@ -93,12 +93,13 @@
         <&pointer_accel>;
 
     scroll_layer {
+        status = "okay";
         layers = <5>;
         input-processors =
             <&zip_report_rate_limit 8>,
             <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 18>;
+            <&zip_scroll_scaler 1 4>;
     };
 };
 

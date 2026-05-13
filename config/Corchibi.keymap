@@ -43,8 +43,8 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tap-term-ms = 130;
-            quick-tap-ms = 175;
+            tapping-term-ms = <130>;
+            quick-tap-ms = <175>;
             bindings = <&mo>, <&kp>;
             label = "SCROLL_LT";
         };

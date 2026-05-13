@@ -38,6 +38,16 @@
             #binding-cells = <0>;
             label = "RE_SCROLL_LR";
         };
+
+        scroll_lt: scroll_lt {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tap-term-ms = 130;
+            quick-tap-ms = 175;
+            bindings = <&mo>, <&kp>;
+            label = "SCROLL_LT";
+        };
     };
 
     keymap {
@@ -45,7 +55,7 @@
 
         default_layer {
             bindings = <
-&kp ESC  &kp TAB  &kp LSHFT  &kp LCTRL  &kp A  &kp Z  &kp LGUI  &kp W  &kp X  &kp LALT  &kp E  &kp D  &kp R  &kp F  &kp V  &mo 1  &kp G  &kp B  &mo 2  &TB2_scroll  &kp Q  &kp S  &kp C  &kp T  &kp SPACE  &kp BSPC  &kp RET  &kp QMARK  &kp RIGHT  &kp COLON  &kp UP  &kp DOWN  &kp O  &kp DOT  &kp RIGHT  &lt 5 I  &kp K  &kp U  &kp J  &kp M  &TB1_mouse  &kp H  &kp N  &lt 1 RC(C)  &kp ESC  &kp P  &kp L  &kp COMMA  &kp Y  &kp SPACE
+&kp ESC  &kp TAB  &kp LSHFT  &kp LCTRL  &kp A  &kp Z  &kp LGUI  &kp W  &kp X  &kp LALT  &kp E  &kp D  &kp R  &kp F  &kp V  &mo 1  &kp G  &kp B  &mo 2  &TB2_scroll  &kp Q  &kp S  &kp C  &kp T  &kp SPACE  &kp BSPC  &kp RET  &kp QMARK  &kp RIGHT  &kp COLON  &kp UP  &kp DOWN  &kp O  &kp DOT  &kp RIGHT  &scroll_lt 5 I  &kp K  &kp U  &kp J  &kp M  &TB1_mouse  &kp H  &kp N  &lt 1 RC(C)  &kp ESC  &kp P  &kp L  &kp COMMA  &kp Y  &kp SPACE
             >;
         };
 

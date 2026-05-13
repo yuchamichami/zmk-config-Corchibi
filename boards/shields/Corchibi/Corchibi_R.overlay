@@ -77,9 +77,8 @@
             layers = <5>;
             input-processors =
                 <&zip_report_rate_limit 8>,
-                <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
                 <&zip_xy_to_scroll_mapper>,
-                <&zip_scroll_scaler 1 4>;
+                <&zip_scroll_scaler 1 8>;
         };
     };
 };
@@ -107,9 +106,8 @@
         layers = <5>;
         input-processors =
             <&zip_report_rate_limit 8>,
-            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 4>;
+            <&zip_scroll_scaler 1 8>;
     };
 };
 

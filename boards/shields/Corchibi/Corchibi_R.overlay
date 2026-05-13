@@ -63,6 +63,21 @@
         sensor-dpi = <600>;
     };
 
+    scroll_accel: scroll_accel {
+        compatible = "zmk,input-processor-acceleration";
+        status = "okay";
+        #input-processor-cells = <0>;
+        input-type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X INPUT_REL_Y>;
+        sensitivity = <10>;
+        min-factor = <1000>;
+        max-factor = <8000>;
+        speed-threshold = <300>;
+        speed-max = <2000>;
+        acceleration-exponent = <2>;
+        sensor-dpi = <1200>;
+    };
+
     trackball_listener_R_scroll: trackball_listener_R_scroll {
         compatible = "zmk,input-listener";
         status = "okay";
@@ -77,8 +92,9 @@
             layers = <5>;
             input-processors =
                 <&zip_report_rate_limit 8>,
+                <&scroll_accel>,
                 <&zip_xy_to_scroll_mapper>,
-                <&zip_scroll_scaler 1 32>;
+                <&zip_scroll_scaler 1 200>;
         };
     };
 };
@@ -106,8 +122,9 @@
         layers = <5>;
         input-processors =
             <&zip_report_rate_limit 8>,
+            <&scroll_accel>,
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 32>;
+            <&zip_scroll_scaler 1 200>;
     };
 };
 

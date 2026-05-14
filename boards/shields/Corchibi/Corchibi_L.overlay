@@ -47,7 +47,7 @@
     trackball_L: trackball_L@73 {
         compatible = "pixart,pat9125";
         reg = <0x73>;
-        status = "disabled";
+        status = "okay";
         motion-gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         res-x-cpi = <1200>;
         res-y-cpi = <1200>;
@@ -55,7 +55,7 @@
         zephyr,axis-y = <INPUT_REL_Y>;
     };
 
-    trackball_L_scroll: trackball_L_scroll@75 {
+    trackball_L2: trackball_L2@75 {
         compatible = "pixart,pat9125";
         reg = <0x75>;
         status = "okay";
@@ -68,5 +68,9 @@
 };
 
 &trackball_split_L {
-    device = <&trackball_L_scroll>;
+    device = <&trackball_L>;
+};
+
+&trackball_split_L2 {
+    device = <&trackball_L2>;
 };

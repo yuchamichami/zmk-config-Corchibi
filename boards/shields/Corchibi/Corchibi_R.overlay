@@ -170,11 +170,13 @@
         <&pointer_accel>;
 };
 
-/* L側 人差し指(@75) をカーソルとして受信 */
+/* L側 人差し指(@75) をスクロールとして受信 */
 &trackball_listener_L2 {
     status = "okay";
     device = <&trackball_split_L2>;
     input-processors =
         <&zip_report_rate_limit 8>,
-        <&pointer_accel>;
+        <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+        <&zip_xy_to_scroll_mapper>,
+        <&zip_scroll_scaler 1 4>;
 };

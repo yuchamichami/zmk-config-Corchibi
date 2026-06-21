@@ -1,0 +1,12 @@
+# Copyright (c) 2026
+# SPDX-License-Identifier: MIT
+
+description: Input processor that converts relative X/Y motion into vertical wheel events, or horizontal wheel events while Shift is held
+
+compatible: "zmk,input-processor-vertical-scroll"
+
+include: ip_zero_param.yaml
+
+properties:
+  type:
+    type: int

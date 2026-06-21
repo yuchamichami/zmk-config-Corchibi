@@ -1,0 +1,8 @@
+if ZMK_POINTING
+
+config ZMK_INPUT_PROCESSOR_VERTICAL_SCROLL
+    bool "Vertical-only scroll input processor"
+    default y
+    depends on DT_HAS_ZMK_INPUT_PROCESSOR_VERTICAL_SCROLL_ENABLED
+
+endif
